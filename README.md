@@ -1,3 +1,2 @@
 # frontend-skripsi-management
-# frontend-skripsi-management
-# frontend-skripsi-management
+Sebagai syarat matakuliah basis data dan pemograman web
