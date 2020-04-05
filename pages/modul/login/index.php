@@ -7,22 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>Login - Skripsi Management System</title>
-    <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/vendors/css/vendors.min.css">
 
-    <link rel="stylesheet" type="text/css" href="app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/themes/semi-dark-layout.css">
 
-    <link rel="stylesheet" type="text/css" href="app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="app-assets/css/pages/authentication.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/pages/authentication.css">
 
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
@@ -47,16 +47,16 @@
                                                 <h4 class="mb-0">Login</h4>
                                             </div>
                                         </div>
-                                        <p class="px-2">Welcome back, please login to your account.</p>
+                                        <p class="px-2"></p>
                                         <div class="card-content">
                                             <div class="card-body pt-1">
                                                 <form action="index.html">
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="text" class="form-control" id="user-name" placeholder="Username" required>
+                                                        <input type="text" class="form-control" id="user-name" placeholder="Email" required>
                                                         <div class="form-control-position">
-                                                            <i class="feather icon-user"></i>
+                                                            <i class="feather icon-mail"></i>
                                                         </div>
-                                                        <label for="user-name">Username</label>
+                                                        <label for="user-name">Email</label>
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
@@ -102,10 +102,10 @@
         </div>
     </div>
 
-    <script src="app-assets/vendors/js/vendors.min.js"></script>
+    <script src="assets/app-assets/vendors/js/vendors.min.js"></script>
 
-    <script src="app-assets/js/core/app-menu.js"></script>
-    <script src="app-assets/js/core/app.js"></script>
-    <script src="app-assets/js/scripts/components.js"></script>
+    <script src="assets/app-assets/js/core/app-menu.js"></script>
+    <script src="assets/app-assets/js/core/app.js"></script>
+    <script src="assets/app-assets/js/scripts/components.js"></script>
 </body>
 </html>
