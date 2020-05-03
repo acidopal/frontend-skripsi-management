@@ -1,4 +1,30 @@
-<?php include 'pages/layouts/header.php'; ?>
+<?php 
+    include 'pages/layouts/header.php'; 
+    require 'Prodi.php';
+    $objProdi = new Prodi();
+    $arrayResult = $objProdi->allProdi();
+
+    if (isset($_POST['btnSubmit'])) {
+        $objProdi->id_prodi = $_POST['id_prodi'];
+        $objProdi->kode_prodi = $_POST['kode_prodi'];
+        $objProdi->nama_prodi = $_POST['nama_prodi'];
+
+        if (isset($_GET['id_prodi'])) {
+            $objProdi->id_prodi = $_GET['id_prodi'];
+            $objProdi->updateProdi();
+        }else{
+            $objProdi->addProdi();
+        }
+
+        echo "<script> alert('$objProdi->message');</script>";
+        if ($objProdi->result) {
+            echo "<script> window.location = 'index.php?p=prodi';</script>";
+        }
+    }else if (isset($_GET['id_prodi'])) {
+        $objProdi->id_prodi = $_GET['id_prodi'];
+        $objProdi->getProdi();
+    }
+?>
       <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -15,85 +41,24 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
-                            <a  onclick="backtoParent()"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
-                                    <form onsubmit="return false;" id="form-konten" class='form-horizontal'>
+                            <a  href="index.php?p=prodi"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
+                                    <form action="" id="form-konten" class='form-horizontal' method="POST">
                                         <div class="box-body">
                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Nama Atlet:</label>
-                                                <input type="text" name="nama_atlet" class="form-control" placeholder="Nama Atlet" value="" required="">
+                                                <label for='kode_prodi' class='control-label'>Kode Prodi:</label>
+                                                <input type="text" name="kode_prodi" class="form-control" placeholder="Kode Prodi" value="<?php echo $objProdi->kode_prodi ?>" required="">
                                             </div>     
 
                                              <div class='form-group'>
-                                                <label for='name' class='control-label'>Jenis Kelamin:</label>
-                                                <ul class="list-unstyled mt-2">
-                                                    <li class="d-inline-block mr-2">
-                                                        <fieldset>
-                                                            <div class="custom-control custom-radio">
-                                                                <input type="radio" class="custom-control-input" name="jk" id="L" value="L" checked>
-                                                                <label class="custom-control-label" for="L">Laki-laki</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </li>
-                                                    <li class="d-inline-block mr-2">
-                                                        <fieldset>
-                                                            <div class="custom-control custom-radio">
-                                                                <input type="radio" class="custom-control-input" name="jk" id="P" value="P" >
-                                                                <label class="custom-control-label" for="P">Perempuan</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </li>
-                                                </ul>
-                                            </div>     
-
-                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Telp:</label>
-                                                <input type="number" name="telp" class="form-control" placeholder="telp" value="" required="">
-                                            </div>     
-
-                                            <div class='form-group'>
-                                                <label for='name' class='control-label'>Alamat:</label>
-                                                <textarea type="text" name="alamat" class="form-control" placeholder="alamat" required=""></textarea>
-                                            </div>     
-
-                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Deskripsi:</label>
-                                                <textarea type="text" name="deskripsi" class="form-control" placeholder="deskripsi" required=""></textarea>
-                                            </div>     
-
-                                            <div class='form-group'>
-                                                <label for='id_induk_cabor' class='control-label'>Induk Cabor :</label>
-                                                <select name="id_induk_cabor" id="id_induk_cabor" class="form-control" >
-                                                        <option disabled selected="selected" value="">Pilih Induk</option>
-                                                </select>
-                                            </div>
-
-                                            <div class='form-group' id="row-provinsi">
-                                                <label for='id_provinsi' class='control-label'>Provinsi :</label>
-                                                <select name="id_provinsi" id="id_provinsi" class="form-control" >
-                                                        <option disabled selected="selected" value="">Pilih Provinsi</option>
-                                                </select>
-                                            </div>
-
-                                             <div class='form-group' id="row-kota">
-                                                <label for='id_kota' class='control-label'>Kota :</label>
-                                                <select name="id_kota" id="id_kota" class="form-control" >
-                                                        <option disabled selected="selected" value="">Pilih Kota</option>
-                                                </select>
-                                            </div>
-
-                                             <div class="form-group">
-                                              <label for="foto">Foto Profile</label>
-                                              <input type="file" id="input-file-now-custom-1" name="foto" class="dropify" data-default-file="" />
-                                              <p class="help-block">Tipe foto : jpeg,png,jpg,bmp <br>maks file: 5mb.</p>
-                                            </div>
-
-                                            <input type='hidden' name='_token' value='{{ csrf_token() }}'>
-                                        </div>
-
+                                                <label for='name' class='control-label'>Nama Prodi:</label>
+                                                <input type="text" name="nama_prodi" class="form-control" placeholder="Nama Prodi" value="<?php echo $objProdi->nama_prodi ?>" required="">
+                                            </div> 
+                                        </div>    
                                        <div class="box-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                            <input type="submit" class="btn btn-primary pull-right" value="Simpan">
+                                            <input type="submit" class="btn btn-primary pull-right" value="Simpan" name="btnSubmit">
                                         </div>
+                                         <br>
+                                        <br>
                                     </form>
                               </div>
                               </div>

@@ -1,4 +1,9 @@
-<?php include 'pages/layouts/header.php'; ?>
+<?php 
+    include 'pages/layouts/header.php';
+    require 'Prodi.php';
+    $objProdi = new Prodi();
+    $arrayResult = $objProdi->allProdi();
+ ?>
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -25,41 +30,31 @@
                                                         <th>No</th>
                                                         <th>Kode Prodi</th>
                                                         <th>Nama Prodi</th>
-                                                        <th>Kepala Prodi</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>CS</td>
-                                                        <td>Computer Science</td>
-                                                        <td>Ahlijati Nuraminah S.Kom., MTI</td>
-                                                        <td>
-                                                            <a href="#" class='btn btn-warning mr-1 mb-1 waves-effect waves-light'><i class='fa fa-edit'></i> Edit</a>
-                                                            <a href="#" class='btn btn-danger mr-1 mb-1 waves-effect waves-light'><i class='fa fa-trash'></i> Hapus</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>BM</td>
-                                                        <td>Business Management</td>
-                                                        <td>Pak Dadan</td>
-                                                        <td>
-                                                            <a href="#" class='btn btn-warning mr-1 mb-1 waves-effect waves-light'><i class='fa fa-edit'></i> Edit</a>
-                                                            <a href="#" class='btn btn-danger mr-1 mb-1 waves-effect waves-light'><i class='fa fa-trash'></i> Hapus</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>SI</td>
-                                                        <td>Sistem Informasi</td>
-                                                        <td>Bu Asri</td>
-                                                        <td>
-                                                            <a href="#" class='btn btn-warning mr-1 mb-1 waves-effect waves-light'><i class='fa fa-edit'></i> Edit</a>
-                                                            <a href="#" class='btn btn-danger mr-1 mb-1 waves-effect waves-light'><i class='fa fa-trash'></i> Hapus</a>
-                                                        </td>
-                                                    </tr>
+                                                    <?php 
+                                                        if (empty($arrayResult)) {
+                                                            echo '<tr><td colspan="4"><center><b>Tidak ada data!</b></center></td></tr>';
+                                                        }else{
+                                                            $no = 1;
+                                                            foreach ($arrayResult as $dataProdi) {
+                                                                echo '<tr>';
+                                                                    echo '<td>'.$no++.'</td>';
+                                                                    echo '<td>'.$dataProdi->kode_prodi.'</td>';
+                                                                    echo '<td>'.$dataProdi->nama_prodi.'</td>';
+                                                                    echo '
+                                                                        <td>
+                                                                            <a href="index.php?p=form-prodi&id_prodi='.$dataProdi->id_prodi.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
+                                                                            <a href="index.php?p=delete-prodi&id_prodi='.$dataProdi->id_prodi.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
+                                                                        </td>
+
+                                                                    ';
+                                                                echo '</tr>';
+                                                            }
+                                                        }
+                                                     ?>
                                                 </tbody>
                                             </table>
                                         </div>
