@@ -3,7 +3,7 @@
 	class User extends Connection
 	{
 		public $id_user;
-		public $nama_user;
+		public $name;
 
 		public $result = false;
 		public $message;
@@ -11,8 +11,8 @@
 
 		public function addUser()
 		{
-			$sql = "INSERT INTO user(id_user, nama_user)
-					VALUES ('$this->id_user', '$this->nama_user')";
+			$sql = "INSERT INTO user(id_user, name)
+					VALUES ('$this->id_user', '$this->name')";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -25,7 +25,7 @@
 		public function updateUser()
 		{
 			$sql = "UPDATE user
-					SET id_user = '$this->id_user', nama_user = '$this->nama_user'
+					SET id_user = '$this->id_user', name = '$this->name'
 					WHERE id_user = '$this->id_user'";
 
 			$this->result = mysqli_query($this->connection, $sql);
@@ -62,6 +62,7 @@
 				while ($data = mysqli_fetch_array($result)) {
 					$objUser = new User();
 					$objUser->id_user = $data['id_user'];
+					$objUser->name = $data['name'];
 					$objUser->email = $data['email'];
 					$objUser->password = $data['password'];
 					$objUser->role = $data['role'];

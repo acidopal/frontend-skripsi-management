@@ -1,4 +1,9 @@
-<?php include 'pages/layouts/header.php'; ?>
+<?php 
+    include 'pages/layouts/header.php';
+    require 'Mahasiswa.php';
+    $objMahasiswa = new Mahasiswa();
+    $arrayResult = $objMahasiswa->allMahasiswa();
+ ?>
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -23,42 +28,43 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIDN</th>
+                                                        <th>NIM</th>
                                                         <th>Nama</th>
                                                         <th>Gender</th>
                                                         <th>Alamat</th>
                                                         <th>No . Telp</th>
                                                         <th>Prodi </th>
+                                                        <th>Angkatan </th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>181231202</td>
-                                                        <td>TB Nawaf</td>
-                                                        <td>Laki-laki</td>
-                                                        <td> Cianjur </td>
-                                                        <td> 08123120310</td>
-                                                        <td> Ilmu Komputer</td>
-                                                        <td>
-                                                            <a href="#" class='btn btn-warning mr-1 mb-1 waves-effect waves-light'><i class='fa fa-edit'></i> Edit</a>
-                                                            <a href="#" class='btn btn-danger mr-1 mb-1 waves-effect waves-light'><i class='fa fa-trash'></i> Hapus</a>
-                                                        </td>
-                                                    </tr>
-                                                     <tr>
-                                                        <td>1</td>
-                                                        <td>181231202</td>
-                                                        <td>Zul</td>
-                                                        <td>Laki-laki</td>
-                                                        <td> Depok </td>
-                                                        <td> 08123120310</td>
-                                                        <td> Ilmu Komputer</td>
-                                                        <td>
-                                                            <a href="#" class='btn btn-warning mr-1 mb-1 waves-effect waves-light'><i class='fa fa-edit'></i> Edit</a>
-                                                            <a href="#" class='btn btn-danger mr-1 mb-1 waves-effect waves-light'><i class='fa fa-trash'></i> Hapus</a>
-                                                        </td>
-                                                    </tr>
+                                                     <?php 
+                                                        if (empty($arrayResult)) {
+                                                            echo '<tr><td colspan="9"><center><b>Tidak ada data!</b></center></td></tr>';
+                                                        }else{
+                                                            $no = 1;
+                                                            foreach ($arrayResult as $dataMahasiswa) {
+                                                                echo '<tr>';
+                                                                    echo '<td>'.$no++.'</td>';
+                                                                    echo '<td>'.$dataMahasiswa->nim.'</td>';
+                                                                    echo '<td>'.$dataMahasiswa->nama.'</td>';
+                                                                    echo '<td>'.$dataMahasiswa->gender.'</td>';
+                                                                    echo '<td>'.$dataMahasiswa->alamat.'</td>';
+                                                                    echo '<td>'.$dataMahasiswa->no_telp.'</td>';
+                                                                    echo '<td>'.$dataMahasiswa->kode_prodi.'</td>';
+                                                                    echo '<td>'.$dataMahasiswa->angkatan.'</td>';
+                                                                    echo '
+                                                                        <td>
+                                                                            <a href="index.php?p=form-prodi&nim='.$dataMahasiswa->nim.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
+                                                                            <a href="index.php?p=delete-prodi&nim='.$dataMahasiswa->nim.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
+                                                                        </td>
+
+                                                                    ';
+                                                                echo '</tr>';
+                                                            }
+                                                        }
+                                                     ?>
                                                 </tbody>
                                             </table>
                                         </div>

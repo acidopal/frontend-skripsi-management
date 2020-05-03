@@ -1,4 +1,9 @@
-<?php include 'pages/layouts/header.php'; ?>
+<?php 
+  include 'pages/layouts/header.php'; 
+
+  require 'pages/authorization-admin.php';
+
+?>
 
 <div class="app-content content">
     <div class="content-overlay"></div>

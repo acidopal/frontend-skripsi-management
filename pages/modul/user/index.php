@@ -1,4 +1,9 @@
-<?php include 'pages/layouts/header.php'; ?>
+<?php 
+    include 'pages/layouts/header.php';
+    require 'User.php';
+    $objUser = new User();
+    $arrayResult = $objUser->allUser();
+ ?>
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -15,7 +20,7 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body card-dashboard">
-                                        <a href="?p=form-user" class="btn btn-primary mb-2" title="Tambah Atlet" style="color: #fff">
+                                        <a href="?p=form-User" class="btn btn-primary mb-2" title="Tambah Atlet" style="color: #fff">
                                             <i class="feather icon-plus"></i>&nbsp; Tambah User
                                         </a>
                                         <div class="table-responsive">
@@ -23,21 +28,35 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Email</th>
-                                                        <th>Role</th>
+                                                        <th>Nama</th>
+                                                        <th>Email </th>
+                                                        <th>Role </th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>tb.nawaf@gmail.com</td>
-                                                        <td>Admin</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>naufal@gmail.com</td>
-                                                        <td>Admin</td>
-                                                    </tr>
+                                                     <?php 
+                                                        if (empty($arrayResult)) {
+                                                            echo '<tr><td colspan="5"><center><b>Tidak ada data!</b></center></td></tr>';
+                                                        }else{
+                                                            $no = 1;
+                                                            foreach ($arrayResult as $dataUser) {
+                                                                echo '<tr>';
+                                                                    echo '<td>'.$no++.'</td>';
+                                                                    echo '<td>'.$dataUser->name.'</td>';
+                                                                    echo '<td>'.$dataUser->email.'</td>';
+                                                                    echo '<td>'.$dataUser->role.'</td>';
+                                                                    echo '
+                                                                        <td>
+                                                                            <a href="index.php?p=form-prodi&id_user='.$dataUser->id_user.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
+                                                                            <a href="index.php?p=delete-prodi&id_user='.$dataUser->id_user.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
+                                                                        </td>
+
+                                                                    ';
+                                                                echo '</tr>';
+                                                            }
+                                                        }
+                                                     ?>
                                                 </tbody>
                                             </table>
                                         </div>

@@ -67,6 +67,7 @@
 					$objMahasiswa->gender = $data['gender'];
 					$objMahasiswa->alamat = $data['alamat'];
 					$objMahasiswa->angkatan = $data['angkatan'];
+					$objMahasiswa->no_telp = $data['no_telp'];
 					$arrResult[$count] = $objUser;
 					$count++;
 				}

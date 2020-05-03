@@ -23,11 +23,11 @@
 			(in_array($request[0], $pages) ? include $pages_dir.'/'.$request[0].'/'.$request[0].'-dosen.php' : include 'pages/error/404.php');  
 		}
 	}else{
-		$session = true;
-		if ($session == true) {
-			include 'pages/modul/dashboard/index.php';
-		}else{
+		// $session = true;
+		// if ($session == true) {
+			// include 'pages/modul/dashboard/index.php';
+		// }else{
 			include 'pages/modul/login/index.php';
-		}
+		// }
 	}
 ?>
