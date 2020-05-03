@@ -9,14 +9,18 @@
 		$p = $_GET['p'];
 		$request = explode("-", $p);
 
-		// echo print_r($request[0]);
-		// die();
 		if (empty($request[1])) {
 			(in_array($p, $pages) ? include $pages_dir.'/'.$p.'/index.php' : include 'pages/error/404.php');  
 		}else if ($request[0] == 'form') {
 			(in_array($request[1], $pages) ? include $pages_dir.'/'.$request[1].'/form.php' : include 'pages/error/404.php');  
-		}if ($request[0] == 'delete'){
+		}else if ($request[0] == 'delete'){
 			(in_array($request[1], $pages) ? include $pages_dir.'/'.$request[1].'/delete.php' : include 'pages/error/404.php');  
+		}else if ($request[1] == 'admin'){
+			(in_array($request[0], $pages) ? include $pages_dir.'/'.$request[0].'/'.$request[0].'-admin.php' : include 'pages/error/404.php');  
+		}else if ($request[1] == 'mahasiswa'){
+			(in_array($request[0], $pages) ? include $pages_dir.'/'.$request[0].'/'.$request[0].'-mahasiswa.php' : include 'pages/error/404.php');  
+		}else if ($request[1] == 'dosen'){
+			(in_array($request[0], $pages) ? include $pages_dir.'/'.$request[0].'/'.$request[0].'-dosen.php' : include 'pages/error/404.php');  
 		}
 	}else{
 		$session = true;

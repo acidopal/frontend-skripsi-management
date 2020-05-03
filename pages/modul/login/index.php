@@ -1,3 +1,36 @@
+<?php
+    require './pages/modul/register/User.php';
+
+    if (isset($_POST['btnSubmit'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $objUser = new User();
+        $objUser->validateLogin($email, $password);
+
+        if ($objUser->result) {
+            if (!isset($_SESSION)) {
+                session_start();
+            }
+
+            $_SESSION['id_user'] = $objUser->id_user;
+            $_SESSION['name'] = $objUser->name;
+            $_SESSION['email'] = $objUser->email;
+
+            echo "<script> alert('Login berhasil!');</script>";
+
+            if ($objUser->role = 'mahasiswa') {
+                echo "<script> window.location = 'index.php?p=dashboard-mahasiswa';</script>";
+            }else if ($objUser->role = 'dosen') {
+                echo "<script> window.location = 'index.php?p=dashboard-dosen';</script>";
+            }else if ($objUser->role = 'admin') {
+                echo "<script> window.location = 'index.php?p=dashboard-admin';</script>";
+            }
+        }else{
+           echo "<script> alert('Email dan password tidak sesuai!');</script>";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -50,17 +83,17 @@
                                         <p class="px-2"></p>
                                         <div class="card-content">
                                             <div class="card-body pt-1">
-                                                <form action="index.html">
+                                                <form action="" method="POST">
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="text" class="form-control" id="user-name" placeholder="Email" required>
+                                                        <input type="text" class="form-control" id="user-name" placeholder="Email" name="email" required>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-mail"></i>
                                                         </div>
-                                                        <label for="user-name">Email</label>
+                                                        <label for="user-email">Email</label>
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                        <input type="password" class="form-control" id="user-password" placeholder="Password" required>
+                                                        <input type="password" class="form-control" id="user-password" placeholder="Password" name="password" required>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-lock"></i>
                                                         </div>
@@ -82,8 +115,8 @@
                                                         </div>
                                                         <div class="text-right"><a href="auth-forgot-password.html" class="card-link">Forgot Password?</a></div>
                                                     </div>
-                                                    <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a>
-                                                    <button type="submit" class="btn btn-primary float-right btn-inline">Login</button>
+                                                    <a href="index.php?p=register" class="btn btn-outline-primary float-left btn-inline">Register</a>
+                                                    <button type="submit" class="btn btn-primary float-right btn-inline" name="btnSubmit">Login</button>
                                                 </form>
                                             </div>
                                         </div>
