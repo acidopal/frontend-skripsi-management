@@ -1,18 +1,18 @@
 <?php 
 	
-	class Prodi extends Connection
+	class User extends Connection
 	{
-		public $kode_prodi;
-		public $nama_prodi;
+		public $id_user;
+		public $nama_user;
 
 		public $result = false;
 		public $message;
 
 
-		public function addProdi()
+		public function addUser()
 		{
-			$sql = "INSERT INTO prodi(kode_prodi, nama_prodi)
-					VALUES ('$this->kode_prodi', '$this->nama_prodi')";
+			$sql = "INSERT INTO user(id_user, nama_user)
+					VALUES ('$this->id_user', '$this->nama_user')";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -22,11 +22,11 @@
 				$this->message = 'Data gagal ditambahkan!';
 		}
 
-		public function updateProdi()
+		public function updateUser()
 		{
-			$sql = "UPDATE prodi
-					SET kode_prodi = '$this->kode_prodi', nama_prodi = '$this->nama_prodi'
-					WHERE kode_prodi = '$this->kode_prodi'";
+			$sql = "UPDATE user
+					SET id_user = '$this->id_user', nama_user = '$this->nama_user'
+					WHERE id_user = '$this->id_user'";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -36,22 +36,22 @@
 				$this->message = 'Data gagal diperbarui!';
 		}
 
-		public function deleteProdi()
+		public function deleteUser()
 		{
-			$sql = "DELETE FROM prodi WHERE kode_prodi = '$this->kode_prodi'";
+			$sql = "DELETE FROM user WHERE id_user = '$this->id_user'";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
 			if ($this->result) 
 				$this->message = 'Data berhasil dihapus!';
 			else
-				$this->message = $this->kode_prodi;
+				$this->message = $this->id_user;
 		}
 
 
-		public function allProdi()
+		public function allUser()
 		{
-			$sql = "SELECT * FROM prodi";
+			$sql = "SELECT * FROM user";
 
 			$result = mysqli_query($this->connection, $sql);
 
@@ -60,11 +60,12 @@
 
 			if (mysqli_num_rows($result) > 0) {
 				while ($data = mysqli_fetch_array($result)) {
-					$objProdi = new Prodi();
-					$objProdi->kode_prodi = $data['kode_prodi'];
-					$objProdi->kode_prodi = $data['kode_prodi'];
-					$objProdi->nama_prodi = $data['nama_prodi'];
-					$arrResult[$count] = $objProdi;
+					$objUser = new User();
+					$objUser->id_user = $data['id_user'];
+					$objUser->email = $data['email'];
+					$objUser->password = $data['password'];
+					$objUser->role = $data['role'];
+					$arrResult[$count] = $objUser;
 					$count++;
 				}
 			}
@@ -72,17 +73,17 @@
 			return $arrResult;
 		}
 
-		public function getProdi()
+		public function getUser()
 		{
-			$sql = "SELECT * FROM prodi WHERE kode_prodi='$this->kode_prodi'";
+			$sql = "SELECT * FROM user WHERE id_user='$this->id_user'";
 
 			$result = mysqli_query($this->connection, $sql);
 
 			if (mysqli_num_rows($result) == 1) {
 				$this->hasil = true;
 				$data = mysqli_fetch_assoc($result);
-				$this->kode_prodi = $data['kode_prodi'];
-				$this->nama_prodi = $data['nama_prodi'];
+				$this->id_user = $data['id_user'];
+				$this->email = $data['email'];
 			}
 
 			return $arrResult;
