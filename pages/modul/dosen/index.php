@@ -35,14 +35,13 @@
                                                         <th>Alamat</th>
                                                         <th>No . Telp</th>
                                                         <th>Prodi </th>
-                                                        <th>Angkatan </th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                      <?php 
                                                         if (empty($arrayResult)) {
-                                                            echo '<tr><td colspan="9"><center><b>Tidak ada data!</b></center></td></tr>';
+                                                            echo '<tr><td colspan="8"><center><b>Tidak ada data!</b></center></td></tr>';
                                                         }else{
                                                             $no = 1;
                                                             foreach ($arrayResult as $dataDosen) {
@@ -54,7 +53,6 @@
                                                                     echo '<td>'.$dataDosen->alamat.'</td>';
                                                                     echo '<td>'.$dataDosen->no_telp.'</td>';
                                                                     echo '<td>'.$dataDosen->kode_prodi.'</td>';
-                                                                    echo '<td>'.$dataDosen->angkatan.'</td>';
                                                                     echo '
                                                                         <td>
                                                                             <a href="index.php?p=form-dosen&nidn='.$dataDosen->nidn.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>

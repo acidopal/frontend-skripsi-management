@@ -3,7 +3,7 @@
 	class Dosen extends Connection
 	{
 		public $nidn;
-		public $nama_dosen;
+		public $nama;
 		public $kode_prodi;
 		public $id_user;
 		public $email;
@@ -17,8 +17,8 @@
 
 		public function addDosen()
 		{
-			$sql = "INSERT INTO dosen(nidn, nama_dosen, email, gender, alamat, no_telp)
-					VALUES ('$this->nidn', '$this->id_user', '$this->kode_prodi', '$this->nama_dosen', '$this->email', '$this->gender', '$this->alamat', '$this->no_telp')";
+			$sql = "INSERT INTO dosen(nidn, id_user, kode_prodi, nama, email, gender, alamat, no_telp)
+					VALUES ('$this->nidn', '$this->id_user', '$this->kode_prodi', '$this->nama', '$this->email', '$this->gender', '$this->alamat', '$this->no_telp')";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -31,7 +31,7 @@
 		public function updateDosen()
 		{
 			$sql = "UPDATE dosen
-					SET nidn = '$this->nidn',id_user = '$this->id_user',kode_prodi = '$this->kode_prodi', nama_dosen = '$this->nama_dosen', email = '$this->email', gender = '$this->gender', alamat = '$this->alamat', no_telp = '$this->no_telp'
+					SET nidn = '$this->nidn',id_user = '$this->id_user',kode_prodi = '$this->kode_prodi', nama = '$this->nama', email = '$this->email', gender = '$this->gender', alamat = '$this->alamat', no_telp = '$this->no_telp'
 					WHERE nidn = '$this->nidn'";
 
 			$this->result = mysqli_query($this->connection, $sql);
@@ -68,12 +68,14 @@
 				while ($data = mysqli_fetch_array($result)) {
 					$objDosen = new Dosen();
 					$objDosen->nidn = $data['nidn'];
-					$objDosen->nama_dosen = $data['nama_dosen'];
-					$objDosen->email = $data['email'];
 					$objDosen->nama = $data['nama'];
+					$objDosen->id_user = $data['id_user'];
+					$objDosen->kode_prodi = $data['kode_prodi'];
+					$objDosen->email = $data['email'];
 					$objDosen->gender = $data['gender'];
 					$objDosen->alamat = $data['alamat'];
-					$arrResult[$count] = $objUser;
+					$objDosen->no_telp = $data['no_telp'];
+					$arrResult[$count] = $objDosen;
 					$count++;
 				}
 			}
@@ -91,7 +93,13 @@
 				$this->hasil = true;
 				$data = mysqli_fetch_assoc($result);
 				$this->nidn = $data['nidn'];
+				$this->nama = $data['nama'];
+				$this->id_user = $data['id_user'];
+				$this->kode_prodi = $data['kode_prodi'];
 				$this->email = $data['email'];
+				$this->gender = $data['gender'];
+				$this->alamat = $data['alamat'];
+				$this->no_telp = $data['no_telp'];
 			}
 
 			return $arrResult;

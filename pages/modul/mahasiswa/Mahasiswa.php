@@ -22,9 +22,6 @@
 				VALUES ('$this->nim', '$this->id_user', '$this->kode_prodi', '$this->email', '$this->gender', '$this->alamat', '$this->no_telp', '$this->angkatan')
 			";
 
-			// print_r($this->gender);
-			// die();
-
 			$this->result = mysqli_query($this->connection, $sql);
 
 			if ($this->result) 
@@ -62,7 +59,7 @@
 
 		public function allMahasiswa()
 		{
-			$sql = "SELECT * FROM mahasiswa";
+			$sql = "SELECT m.*, u.name as nama FROM mahasiswa m INNER JOIN user u ON m.id_user = u.id_user";
 
 			$result = mysqli_query($this->connection, $sql);
 
@@ -73,6 +70,7 @@
 				while ($data = mysqli_fetch_array($result)) {
 					$objMahasiswa = new Mahasiswa();
 					$objMahasiswa->nim = $data['nim'];
+					$objMahasiswa->nama = $data['nama'];
 					$objMahasiswa->email = $data['email'];
 					$objMahasiswa->gender = $data['gender'];
 					$objMahasiswa->alamat = $data['alamat'];
