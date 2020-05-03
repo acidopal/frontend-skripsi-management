@@ -1,4 +1,32 @@
-<?php include 'pages/layouts/header.php'; ?>
+<?php 
+    include 'pages/layouts/header.php'; 
+    require 'User.php';
+    $objUser = new User();
+    $arrayResult = $objUser->allUser();
+
+    if (isset($_POST['btnSubmit'])) {
+        $objUser->id_user = $_POST['id_user'];
+        $objUser->nama = $_POST['nama'];
+        $objUser->email = $_POST['email'];
+        $objUser->password = $_POST['password'];
+        $objUser->role = $_POST['role'];
+
+        if (isset($_GET['id_user'])) {
+            $objUser->id_user = $_GET['id_user'];
+            $objUser->updateUser();
+        }else{
+            $objUser->addUser();
+        }
+
+        echo "<script> alert('$objUser->message');</script>";
+        if ($objUser->result) {
+            echo "<script> window.location = 'index.php?p=User';</script>";
+        }
+    }else if (isset($_GET['id_user'])) {
+        $objUser->id_user = $_GET['id_user'];
+        $objUser->getUser();
+    }
+?>
       <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -11,89 +39,45 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Form Dosen</h4>
+                            <h4 class="card-title">Form User</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
-                            <a  onclick="backtoParent()"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
-                                    <form onsubmit="return false;" id="form-konten" class='form-horizontal'>
+                            <a  href="index.php?p=User"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
+                                    <form action="" id="form-konten" class='form-horizontal' method="POST">
                                         <div class="box-body">
                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Nama Atlet:</label>
-                                                <input type="text" name="nama_atlet" class="form-control" placeholder="Nama Atlet" value="" required="">
-                                            </div>     
+                                                <label for='id_user' class='control-label'>User:</label>
+                                                <input type="text" name="id_user" class="form-control" placeholder="Kode User" value="<?php echo $objUser->id_user ?>" required="">
+                                            </div>      
 
                                              <div class='form-group'>
-                                                <label for='name' class='control-label'>Jenis Kelamin:</label>
-                                                <ul class="list-unstyled mt-2">
-                                                    <li class="d-inline-block mr-2">
-                                                        <fieldset>
-                                                            <div class="custom-control custom-radio">
-                                                                <input type="radio" class="custom-control-input" name="jk" id="L" value="L" checked>
-                                                                <label class="custom-control-label" for="L">Laki-laki</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </li>
-                                                    <li class="d-inline-block mr-2">
-                                                        <fieldset>
-                                                            <div class="custom-control custom-radio">
-                                                                <input type="radio" class="custom-control-input" name="jk" id="P" value="P" >
-                                                                <label class="custom-control-label" for="P">Perempuan</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </li>
-                                                </ul>
-                                            </div>     
-
-                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Telp:</label>
-                                                <input type="number" name="telp" class="form-control" placeholder="telp" value="" required="">
-                                            </div>     
+                                                <label for='name' class='control-label'>Email:</label>
+                                                <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $objUser->email ?>" required="">
+                                            </div> 
 
                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Alamat:</label>
-                                                <textarea type="text" name="alamat" class="form-control" placeholder="alamat" required=""></textarea>
-                                            </div>     
-
-                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Deskripsi:</label>
-                                                <textarea type="text" name="deskripsi" class="form-control" placeholder="deskripsi" required=""></textarea>
-                                            </div>     
+                                                <label for='name' class='control-label'>nama:</label>
+                                                <input type="text" name="nama" class="form-control" placeholder="nama" value="<?php echo $objUser->nama ?>" required="">
+                                            </div> 
 
                                             <div class='form-group'>
-                                                <label for='id_induk_cabor' class='control-label'>Induk Cabor :</label>
-                                                <select name="id_induk_cabor" id="id_induk_cabor" class="form-control" >
-                                                        <option disabled selected="selected" value="">Pilih Induk</option>
-                                                </select>
+                                                <label for='name' class='control-label'>password:</label>
+                                                <input type="text" name="password" class="form-control" placeholder="password" value="<?php echo $objUser->password ?>" required="">
                                             </div>
 
-                                            <div class='form-group' id="row-provinsi">
-                                                <label for='id_provinsi' class='control-label'>Provinsi :</label>
-                                                <select name="id_provinsi" id="id_provinsi" class="form-control" >
-                                                        <option disabled selected="selected" value="">Pilih Provinsi</option>
-                                                </select>
-                                            </div>
+                                             <div class='form-group'>
+                                                <label for='name' class='control-label'>role:</label>
+                                                <input type="text" name="role" class="form-control" placeholder="role" value="<?php echo $objUser->role ?>" required="">
+                                            </div> 
 
-                                             <div class='form-group' id="row-kota">
-                                                <label for='id_kota' class='control-label'>Kota :</label>
-                                                <select name="id_kota" id="id_kota" class="form-control" >
-                                                        <option disabled selected="selected" value="">Pilih Kota</option>
-                                                </select>
-                                            </div>
-
-                                             <div class="form-group">
-                                              <label for="foto">Foto Profile</label>
-                                              <input type="file" id="input-file-now-custom-1" name="foto" class="dropify" data-default-file="" />
-                                              <p class="help-block">Tipe foto : jpeg,png,jpg,bmp <br>maks file: 5mb.</p>
-                                            </div>
-
-                                            <input type='hidden' name='_token' value='{{ csrf_token() }}'>
-                                        </div>
-
+                                           
+                                        </div>    
                                        <div class="box-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                            <input type="submit" class="btn btn-primary pull-right" value="Simpan">
+                                            <input type="submit" class="btn btn-primary pull-right" value="Simpan" name="btnSubmit">
                                         </div>
+                                         <br>
+                                        <br>
                                     </form>
                               </div>
                               </div>

@@ -4,15 +4,17 @@
 	{
 		public $id_user;
 		public $name;
-
+		public $password;
+		public $email;
+		public $role;
 		public $result = false;
 		public $message;
 
 
 		public function addUser()
 		{
-			$sql = "INSERT INTO user(id_user, name)
-					VALUES ('$this->id_user', '$this->name')";
+			$sql = "INSERT INTO user(id_user, name, email, password, role)
+					VALUES ('$this->id_user', '$this->name', '$this->email', '$this->password', '$this->role')";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -25,7 +27,7 @@
 		public function updateUser()
 		{
 			$sql = "UPDATE user
-					SET id_user = '$this->id_user', name = '$this->name'
+					SET id_user = '$this->id_user', name = '$this->name', email = '$this->email', password = '$this->password', role = '$this->role'
 					WHERE id_user = '$this->id_user'";
 
 			$this->result = mysqli_query($this->connection, $sql);
