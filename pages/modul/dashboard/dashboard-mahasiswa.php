@@ -46,7 +46,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6">
+                                               <!--  <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label for="location1">City</label>
                                                         <select class="custom-select form-control" id="location1" name="location">
@@ -56,7 +56,7 @@
                                                             <option value="boston">Boston</option>
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </fieldset>
 
