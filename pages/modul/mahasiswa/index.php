@@ -57,8 +57,8 @@
                                                                     echo '<td>'.$dataMahasiswa->angkatan.'</td>';
                                                                     echo '
                                                                         <td>
-                                                                            <a href="index.php?p=form-prodi&nim='.$dataMahasiswa->nim.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
-                                                                            <a href="index.php?p=delete-prodi&nim='.$dataMahasiswa->nim.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
+                                                                            <a href="index.php?p=form-mahasiswa&nim='.$dataMahasiswa->nim.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
+                                                                            <a href="index.php?p=delete-mahasiswa&nim='.$dataMahasiswa->nim.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
                                                                         </td>
 
                                                                     ';

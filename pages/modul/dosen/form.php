@@ -46,7 +46,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
-                            <a  href="index.php?p=Dosen"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
+                            <a  href="index.php?p=dosen"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
                                     <form action="" id="form-konten" class='form-horizontal' method="POST">
                                         <div class="box-body">
                                             <div class='form-group'>

@@ -6,7 +6,7 @@
 
     if (isset($_POST['btnSubmit'])) {
         $objUser->id_user = $_POST['id_user'];
-        $objUser->nama = $_POST['nama'];
+        $objUser->name = $_POST['name'];
         $objUser->email = $_POST['email'];
         $objUser->password = $_POST['password'];
         $objUser->role = $_POST['role'];
@@ -20,7 +20,7 @@
 
         echo "<script> alert('$objUser->message');</script>";
         if ($objUser->result) {
-            echo "<script> window.location = 'index.php?p=User';</script>";
+            echo "<script> window.location = 'index.php?p=user';</script>";
         }
     }else if (isset($_GET['id_user'])) {
         $objUser->id_user = $_GET['id_user'];
@@ -43,32 +43,27 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
-                            <a  href="index.php?p=User"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
+                            <a  href="index.php?p=user"  class="btn btn-warning mr-1 mb-1 waves-effect waves-light">Kembali</a>
                                     <form action="" id="form-konten" class='form-horizontal' method="POST">
                                         <div class="box-body">
-                                            <div class='form-group'>
-                                                <label for='id_user' class='control-label'>User:</label>
-                                                <input type="text" name="id_user" class="form-control" placeholder="Kode User" value="<?php echo $objUser->id_user ?>" required="">
-                                            </div>      
-
                                              <div class='form-group'>
                                                 <label for='name' class='control-label'>Email:</label>
                                                 <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $objUser->email ?>" required="">
                                             </div> 
 
                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>nama:</label>
-                                                <input type="text" name="nama" class="form-control" placeholder="nama" value="<?php echo $objUser->nama ?>" required="">
+                                                <label for='name' class='control-label'>Nama:</label>
+                                                <input type="text" name="name" class="form-control" placeholder="Nama" value="<?php echo $objUser->name ?>" required="">
                                             </div> 
 
                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>password:</label>
+                                                <label for='name' class='control-label'>Password:</label>
                                                 <input type="text" name="password" class="form-control" placeholder="password" value="<?php echo $objUser->password ?>" required="">
                                             </div>
 
                                              <div class='form-group'>
-                                                <label for='name' class='control-label'>role:</label>
-                                                <input type="text" name="role" class="form-control" placeholder="role" value="<?php echo $objUser->role ?>" required="">
+                                                <label for='name' class='control-label'>Role:</label>
+                                                <input type="text" name="role" class="form-control" placeholder="Role" value="<?php echo $objUser->role ?>" required="">
                                             </div> 
 
                                            

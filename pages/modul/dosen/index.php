@@ -57,8 +57,8 @@
                                                                     echo '<td>'.$dataDosen->angkatan.'</td>';
                                                                     echo '
                                                                         <td>
-                                                                            <a href="index.php?p=form-prodi&nidn='.$dataDosen->nidn.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
-                                                                            <a href="index.php?p=delete-prodi&nidn='.$dataDosen->nidn.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
+                                                                            <a href="index.php?p=form-dosen&nidn='.$dataDosen->nidn.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
+                                                                            <a href="index.php?p=delete-dosen&nidn='.$dataDosen->nidn.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
                                                                         </td>
 
                                                                     ';

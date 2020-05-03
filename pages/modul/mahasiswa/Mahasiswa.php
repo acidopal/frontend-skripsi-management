@@ -17,8 +17,13 @@
 
 		public function addMahasiswa()
 		{
-			$sql = "INSERT INTO mahasiswa(nim, id_user, kode_prodi, email, gender, alamat, no_telp, angkatan)
-					VALUES ('$this->nim', '$this->id_user', '$this->kode_prodi', '$this->email', '$this->gender', '$this->no_telp', '$this->angkatan')";
+			$sql = "
+				INSERT INTO mahasiswa(nim, id_user, kode_prodi, email, gender, alamat, no_telp, angkatan)
+				VALUES ('$this->nim', '$this->id_user', '$this->kode_prodi', '$this->email', '$this->gender', '$this->alamat', '$this->no_telp', '$this->angkatan')
+			";
+
+			// print_r($this->gender);
+			// die();
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -69,12 +74,11 @@
 					$objMahasiswa = new Mahasiswa();
 					$objMahasiswa->nim = $data['nim'];
 					$objMahasiswa->email = $data['email'];
-					$objMahasiswa->nama = $data['nama'];
 					$objMahasiswa->gender = $data['gender'];
 					$objMahasiswa->alamat = $data['alamat'];
 					$objMahasiswa->angkatan = $data['angkatan'];
 					$objMahasiswa->no_telp = $data['no_telp'];
-					$arrResult[$count] = $objUser;
+					$arrResult[$count] = $objMahasiswa;
 					$count++;
 				}
 			}

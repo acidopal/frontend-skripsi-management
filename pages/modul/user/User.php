@@ -87,6 +87,9 @@
 				$data = mysqli_fetch_assoc($result);
 				$this->id_user = $data['id_user'];
 				$this->email = $data['email'];
+				$this->name = $data['name'];
+				$this->password = $data['password'];
+				$this->role = $data['role'];
 			}
 
 			return $arrResult;
