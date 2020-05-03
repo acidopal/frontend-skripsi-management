@@ -1,5 +1,6 @@
 <?php 
     include 'pages/layouts/header.php';
+    include 'pages/authorization-admin.php'; 
     require 'User.php';
     $objUser = new User();
     $arrayResult = $objUser->allUser();
@@ -20,7 +21,7 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body card-dashboard">
-                                        <a href="?p=form-User" class="btn btn-primary mb-2" title="Tambah Atlet" style="color: #fff">
+                                        <a href="?p=form-user" class="btn btn-primary mb-2" title="Tambah Atlet" style="color: #fff">
                                             <i class="feather icon-plus"></i>&nbsp; Tambah User
                                         </a>
                                         <div class="table-responsive">
@@ -48,8 +49,8 @@
                                                                     echo '<td>'.$dataUser->role.'</td>';
                                                                     echo '
                                                                         <td>
-                                                                            <a href="index.php?p=form-prodi&id_user='.$dataUser->id_user.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
-                                                                            <a href="index.php?p=delete-prodi&id_user='.$dataUser->id_user.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
+                                                                            <a href="index.php?p=form-user&id_user='.$dataUser->id_user.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
+                                                                            <a href="index.php?p=delete-user&id_user='.$dataUser->id_user.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
                                                                         </td>
 
                                                                     ';

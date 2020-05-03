@@ -1,4 +1,7 @@
-<?php include 'pages/layouts/header.php'; ?>
+<?php 
+    include 'pages/layouts/header.php';
+    include 'pages/authorization-login.php'; 
+ ?>
 
 <div class="app-content content">
     <div class="content-overlay"></div>

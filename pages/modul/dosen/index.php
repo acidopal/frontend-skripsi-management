@@ -1,5 +1,6 @@
 <?php 
     include 'pages/layouts/header.php';
+    include 'pages/authorization-admin.php'; 
     require 'Dosen.php';
     $objDosen = new Dosen();
     $arrayResult = $objDosen->allDosen();

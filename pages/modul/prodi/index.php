@@ -1,5 +1,6 @@
 <?php 
     include 'pages/layouts/header.php';
+    include 'pages/authorization-admin.php'; 
     require 'Prodi.php';
     $objProdi = new Prodi();
     $arrayResult = $objProdi->allProdi();
@@ -46,8 +47,8 @@
                                                                     echo '<td>'.$dataProdi->nama_prodi.'</td>';
                                                                     echo '
                                                                         <td>
-                                                                            <a href="index.php?p=form-prodi&id_prodi='.$dataProdi->id_prodi.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
-                                                                            <a href="index.php?p=delete-prodi&id_prodi='.$dataProdi->id_prodi.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
+                                                                            <a href="index.php?p=form-prodi&kode_prodi='.$dataProdi->kode_prodi.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>
+                                                                            <a href="index.php?p=delete-prodi&kode_prodi='.$dataProdi->kode_prodi.'" class="btn btn-danger mr-1 mb-1 waves-effect waves-light" onclick="return confirm(\'Apakah anda yakin akan menghapus?\')"><i class="fa fa-trash"></i> Hapus</a>
                                                                         </td>
 
                                                                     ';

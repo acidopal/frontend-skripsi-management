@@ -19,6 +19,10 @@
             </li>
             <li class="<?php echo($_GET[p] == 'bimbingan-skripsi' ? 'active' : '');?> nav-item"><a href="?p=bimbingan-skripsi"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Bimbingan Skripsi">Bimbingan Skripsi</span></a>
             </li>
+
+            <?php
+                if ($_SESSION['role'] == 'admin') {
+            ?>
             <li class="nav-item"><a href="#"><i class="feather icon-copy"></i><span class="menu-title" data-i18n="Master">Master</span></a>
                 <ul class="menu-content">
                     <li class="<?php echo($_GET[p] == 'dosen' ? 'active' : '');?>"><a href="?p=dosen"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Dosen">Dosen</span></a>
@@ -32,6 +36,9 @@
                     </li>
                 </ul>
             </li>
+            <?php 
+                }
+             ?>
         </ul>
     </div>
 </div>

@@ -1,34 +1,39 @@
 <?php
     require './pages/modul/register/User.php';
 
-    if (isset($_POST['btnSubmit'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+    if (isset($_SESSION)) {
+        if (isset($_POST['btnSubmit'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
 
-        $objUser = new User();
-        $objUser->validateLogin($email, $password);
+            $objUser = new User();
+            $objUser->validateLogin($email, $password);
 
-        if ($objUser->result) {
-            if (!isset($_SESSION)) {
-                session_start();
+            if ($objUser->result) {
+                if (!isset($_SESSION)) {
+                    session_start();
+                }
+
+                $_SESSION['id_user'] = $objUser->id_user;
+                $_SESSION['name'] = $objUser->name;
+                $_SESSION['email'] = $objUser->email;
+                $_SESSION['role'] = $objUser->role;
+
+                echo "<script> alert('Login berhasil!');</script>";
+
+                if ($objUser->role = 'mahasiswa') {
+                    echo "<script> window.location = 'index.php?p=dashboard-mahasiswa';</script>";
+                }else if ($objUser->role = 'dosen') {
+                    echo "<script> window.location = 'index.php?p=dashboard-dosen';</script>";
+                }else if ($objUser->role = 'admin') {
+                    echo "<script> window.location = 'index.php?p=dashboard-admin';</script>";
+                }
+            }else{
+               echo "<script> alert('Email dan password tidak sesuai!');</script>";
             }
-
-            $_SESSION['id_user'] = $objUser->id_user;
-            $_SESSION['name'] = $objUser->name;
-            $_SESSION['email'] = $objUser->email;
-
-            echo "<script> alert('Login berhasil!');</script>";
-
-            if ($objUser->role = 'mahasiswa') {
-                echo "<script> window.location = 'index.php?p=dashboard-mahasiswa';</script>";
-            }else if ($objUser->role = 'dosen') {
-                echo "<script> window.location = 'index.php?p=dashboard-dosen';</script>";
-            }else if ($objUser->role = 'admin') {
-                echo "<script> window.location = 'index.php?p=dashboard-admin';</script>";
-            }
-        }else{
-           echo "<script> alert('Email dan password tidak sesuai!');</script>";
         }
+    }else{
+         echo "<script> window.location = 'index.php?p=dashboard';</script>";
     }
 ?>
 <!DOCTYPE html>

@@ -1,5 +1,6 @@
 <?php 
     include 'pages/layouts/header.php';
+    include 'pages/authorization-admin.php'; 
     require 'Mahasiswa.php';
     $objMahasiswa = new Mahasiswa();
     $arrayResult = $objMahasiswa->allMahasiswa();

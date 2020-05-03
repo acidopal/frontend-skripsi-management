@@ -1,8 +1,6 @@
 <?php 
   include 'pages/layouts/header.php'; 
-
   require 'pages/authorization-admin.php';
-
 ?>
 
 <div class="app-content content">

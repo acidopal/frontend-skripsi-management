@@ -39,6 +39,15 @@
                 $objMail = new Mail();
                 $objMail->SendMail($objUser->email, $objUser->name, 'Registrasi Berhasil -'.$objUser->name, $message);
 
+                if (!isset($_SESSION)) {
+                    session_start();
+                }
+
+                $_SESSION['id_user'] = $objUser->id_user;
+                $_SESSION['name'] = $objUser->name;
+                $_SESSION['email'] = $objUser->email;
+                $_SESSION['role'] = $objUser->role;
+
                 echo "<script> alert('Registrasi berhasil!');</script>";
                 echo "<script> window.location = 'index.php?p=login';</script>";
             }

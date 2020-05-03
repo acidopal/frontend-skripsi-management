@@ -9,8 +9,10 @@
 		$p = $_GET['p'];
 		$request = explode("-", $p);
 
-		if (empty($request[1])) {
+		if (empty($request[1]) && $request[0] != 'logout') {
 			(in_array($p, $pages) ? include $pages_dir.'/'.$p.'/index.php' : include 'pages/error/404.php');  
+		}else if ($request[0] == 'logout'){
+			(in_array('login', $pages) ? include $pages_dir.'/login/logout.php' : include 'pages/error/404.php');  
 		}else if ($request[0] == 'form') {
 			(in_array($request[1], $pages) ? include $pages_dir.'/'.$request[1].'/form.php' : include 'pages/error/404.php');  
 		}else if ($request[0] == 'delete'){
@@ -24,10 +26,14 @@
 		}
 	}else{
 		// $session = true;
-		// if ($session == true) {
-			// include 'pages/modul/dashboard/index.php';
-		// }else{
+	  	if (!isset($_SESSION)) {
+            session_start();
+        }
+
+		if (!isset($_SESSION)) {
+			include 'pages/modul/dashboard/index.php';
+		}else{
 			include 'pages/modul/login/index.php';
-		// }
+		}
 	}
 ?>

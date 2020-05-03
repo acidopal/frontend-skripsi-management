@@ -5,12 +5,11 @@
     $arrayResult = $objProdi->allProdi();
 
     if (isset($_POST['btnSubmit'])) {
-        $objProdi->id_prodi = $_POST['id_prodi'];
         $objProdi->kode_prodi = $_POST['kode_prodi'];
         $objProdi->nama_prodi = $_POST['nama_prodi'];
 
-        if (isset($_GET['id_prodi'])) {
-            $objProdi->id_prodi = $_GET['id_prodi'];
+        if (isset($_GET['kode_prodi'])) {
+            $objProdi->kode_prodi = $_GET['kode_prodi'];
             $objProdi->updateProdi();
         }else{
             $objProdi->addProdi();
@@ -20,8 +19,8 @@
         if ($objProdi->result) {
             echo "<script> window.location = 'index.php?p=prodi';</script>";
         }
-    }else if (isset($_GET['id_prodi'])) {
-        $objProdi->id_prodi = $_GET['id_prodi'];
+    }else if (isset($_GET['kode_prodi'])) {
+        $objProdi->kode_prodi = $_GET['kode_prodi'];
         $objProdi->getProdi();
     }
 ?>
@@ -37,7 +36,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Form Dosen</h4>
+                            <h4 class="card-title">Form Prodi</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body card-dashboard">
