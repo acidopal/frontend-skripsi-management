@@ -2029,7 +2029,7 @@ pre code {
 .form-control {
   display : block;
   width : 100%;
-  height : calc( 1.25em + 1.4rem + 1px);
+  height : calc(1.25em + 1.4rem + 1px);
   padding : 0.7rem 0.7rem;
   font-size : 0.96rem;
   font-weight : 400;
@@ -3717,7 +3717,7 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
 .custom-select {
   display : inline-block;
   width : 100%;
-  height : calc( 1.25em + 1.4rem + 1px);
+  height : calc(1.25em + 1.4rem + 1px);
   padding : 0.7rem 0.7rem 0.7rem 1.7rem;
   font-size : 0.96rem;
   font-weight : 400;
@@ -3774,7 +3774,7 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   position : relative;
   display : inline-block;
   width : 100%;
-  height : calc( 1.25em + 1.4rem + 1px);
+  height : calc(1.25em + 1.4rem + 1px);
   margin-bottom : 0;
 }
 
@@ -3782,7 +3782,7 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   position : relative;
   z-index : 2;
   width : 100%;
-  height : calc( 1.25em + 1.4rem + 1px);
+  height : calc(1.25em + 1.4rem + 1px);
   margin : 0;
   opacity : 0;
 }
@@ -3806,7 +3806,7 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   left : 0;
   right : 0;
   z-index : 1;
-  height : calc( 1.25em + 1.4rem + 1px);
+  height : calc(1.25em + 1.4rem + 1px);
   padding : 0.7rem 0.7rem;
   font-weight : 400;
   line-height : 1.5rem;

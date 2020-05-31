@@ -1,15 +1,29 @@
 <?php 
     include 'pages/layouts/header.php'; 
     require 'User.php';
+    require 'pages/modul/prodi/Prodi.php';
+
     $objUser = new User();
     $arrayResult = $objUser->allUser();
 
+    $objProdi = new Prodi();
+    $prodiList = $objProdi->allProdi();
+
     if (isset($_POST['btnSubmit'])) {
         $objUser->id_user = $_POST['id_user'];
-        $objUser->name = $_POST['name'];
         $objUser->email = $_POST['email'];
-        $objUser->password = $_POST['password'];
         $objUser->role = $_POST['role'];
+        $objUser->nama = $_POST['nama'];
+        $objUser->kode_prodi = $_POST['kode_prodi'];
+        $objUser->alamat = $_POST['alamat'];
+        $objUser->gender = $_POST['gender'];
+        $objUser->no_telp = $_POST['no_telp'];
+
+        if (!isset($_GET['password']) && isset($_GET['old_password'])) {
+            $objUser->password = $_GET['old_password'];
+        }else{
+            $objUser->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        }
 
         if (isset($_GET['id_user'])) {
             $objUser->id_user = $_GET['id_user'];
@@ -47,25 +61,77 @@
                                     <form action="" id="form-konten" class='form-horizontal' method="POST">
                                         <div class="box-body">
                                              <div class='form-group'>
+                                                <label for='nama' class='control-label'>Nama:</label>
+                                                <input type="text" name="nama" class="form-control" placeholder="Nama" value="<?php echo $objUser->nama ?>" required="">
+                                            </div> 
+
+                                             <div class='form-group'>
                                                 <label for='name' class='control-label'>Email:</label>
                                                 <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $objUser->email ?>" required="">
                                             </div> 
 
                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Nama:</label>
-                                                <input type="text" name="name" class="form-control" placeholder="Nama" value="<?php echo $objUser->name ?>" required="">
+                                                <label for='name' class='control-label'>Password:</label>
+                                                <input type="password" name="password" class="form-control" placeholder="Password" value="" >
+                                                <input type="hidden" name="old_password" class="form-control" value="<?php echo $objUser->password ?>" >
+                                            </div>
+
+                                            <div class='form-group'>
+                                                <label for='name' class='control-label'>Role:</label>
+                                                <select name="role" class="form-control" id="role">
+                                                    <option value="Mahasiswa">Mahasiswa</option>
+                                                    <option value="Dosen">Dosen</option>
+                                                    <option value="Admin">Admin</option>  
+                                                </select>
                                             </div> 
 
                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Password:</label>
-                                                <input type="text" name="password" class="form-control" placeholder="password" value="<?php echo $objUser->password ?>" required="">
-                                            </div>
+                                                <label for='kode_prodi' class='control-label'>Prodi:</label>
+                                                <select name="kode_prodi" class="form-control">
+                                                    <?php 
+                                                        foreach ($prodiList as $prodi) {
+                                                            echo '<option value="'.$prodi->kode_prodi.'"">'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                        }
+                                                     ?>
+                                                </select>
+                                            </div>     
 
                                              <div class='form-group'>
-                                                <label for='name' class='control-label'>Role:</label>
-                                                <input type="text" name="role" class="form-control" placeholder="Role" value="<?php echo $objUser->role ?>" required="">
+                                                <label for='name' class='control-label'>Gender:</label>
+                                               <fieldset>
+                                                    <div class="vs-radio-con">
+                                                        <input type="radio" name="gender" checked value="L">
+                                                        <span class="vs-radio">
+                                                            <span class="vs-radio--border"></span>
+                                                            <span class="vs-radio--circle"></span>
+                                                        </span>
+                                                        <span class="">Laki-laki</span>
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <div class="vs-radio-con">
+                                                        <input type="radio" name="gender" value="P">
+                                                        <span class="vs-radio">
+                                                            <span class="vs-radio--border"></span>
+                                                            <span class="vs-radio--circle"></span>
+                                                        </span>
+                                                        <span class="">Perempuan</span>
+                                                    </div>
+                                                </fieldset>
+
                                             </div> 
 
+                                            <div class='form-group'>
+                                                <label for='name' class='control-label'>Alamat:</label>
+                                                <textarea name="alamat" class="form-control" placeholder="Alamat" ><?php echo $objUser->alamat ?></textarea> 
+                                            </div> 
+
+                                             <div class='form-group'>
+                                                <label for='name' class='control-label'>No. Telp:</label>
+                                                <input type="text" name="no_telp" class="form-control" placeholder="No. Telp" value="<?php echo $objUser->no_telp ?>" required="">
+                                            </div> 
+
+                                            <input type="hidden" name="id_user" value="<?php echo $objUser->id_user ?>">
                                            
                                         </div>    
                                        <div class="box-footer">
@@ -85,4 +151,5 @@
             </div>
         </div>
     </div>
+
 <?php include 'pages/layouts/footer.php'; ?>

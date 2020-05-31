@@ -122,6 +122,25 @@ body.dark-layout .header-navbar .navbar-container .nav .dropdown-notification .d
 body.dark-layout .header-navbar .navbar-container .nav .dropdown-notification .dropdown-menu.dropdown-menu-media .dropdown-menu-footer .dropdown-item:hover {
   background-color : #10163A;
 }
+body.dark-layout .header-navbar .navbar-container .nav .dropdown-cart.empty-cart:before {
+  background-color : #262C49;
+}
+body.dark-layout .header-navbar .navbar-container .nav .dropdown-cart li {
+  color : #FFFFFF;
+}
+body.dark-layout .header-navbar .navbar-container .nav .dropdown-cart .dropdown-header span {
+  color : #FFFFFF;
+}
+body.dark-layout .header-navbar .navbar-container .nav .dropdown-cart .media-list .media {
+  background-color : #FFFFFF;
+}
+body.dark-layout .header-navbar .navbar-container .nav .dropdown-cart .media-list .media .media-body {
+  background-color : #262C49;
+  padding-right : 1rem;
+}
+body.dark-layout .header-navbar .navbar-container .nav .dropdown-cart .media-list .media:hover {
+  background-color : #FFFFFF !important;
+}
 body.dark-layout .header-navbar.navbar-static-top {
   background-color : transparent;
 }

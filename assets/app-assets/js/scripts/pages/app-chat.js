@@ -1,27 +1,39 @@
 (function($) {
   "use strict";
 
-  // Chat user list
-  if($('.chat-application .chat-user-list').length > 0){
-    var chat_user_list = new PerfectScrollbar(".chat-user-list");
+  // if it is not touch device
+  if (!$.app.menu.is_touch_device()){
+    // Chat user list
+    if($('.chat-application .chat-user-list').length > 0){
+      var chat_user_list = new PerfectScrollbar(".chat-user-list");
+    }
+  
+    // Chat user profile
+    if($('.chat-application .profile-sidebar-area .scroll-area').length > 0){
+      var chat_user_list = new PerfectScrollbar(".profile-sidebar-area .scroll-area");
+    }
+  
+    // Chat area
+    if($('.chat-application .user-chats').length > 0){
+      var chat_user = new PerfectScrollbar(".user-chats", {
+        wheelPropagation: false
+      });
+    }
+  
+    // User profile right area
+    if($('.chat-application .user-profile-sidebar-area').length > 0){
+      var user_profile = new PerfectScrollbar(".user-profile-sidebar-area");
+    }
   }
 
-  // Chat user profile
-  if($('.chat-application .profile-sidebar-area .scroll-area').length > 0){
-    var chat_user_list = new PerfectScrollbar(".profile-sidebar-area .scroll-area");
+  // if it is a touch device
+  else {
+    $(".chat-user-list").css("overflow", "scroll");
+    $(".profile-sidebar-area .scroll-area").css("overflow", "scroll");
+    $(".user-chats").css("overflow", "scroll");
+    $(".user-profile-sidebar-area").css("overflow", "scroll");
   }
 
-  // Chat area
-  if($('.chat-application .user-chats').length > 0){
-    var chat_user = new PerfectScrollbar(".user-chats", {
-      wheelPropagation: false
-    });
-  }
-
-  // User profile right area
-  if($('.chat-application .user-profile-sidebar-area').length > 0){
-    var user_profile = new PerfectScrollbar(".user-profile-sidebar-area");
-  }
 
   // Chat Profile sidebar toggle
   $('.chat-application .sidebar-profile-toggle').on('click',function(){

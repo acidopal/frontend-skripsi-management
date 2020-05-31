@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="assets/app-assets/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/app-assets/vendors/css/charts/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="assets/app-assets/vendors/css/pickers/pickadate/pickadate.css">
 
     <link rel="stylesheet" type="text/css" href="assets/app-assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/app-assets/css/bootstrap-extended.css">
@@ -26,7 +26,7 @@
 
     <link rel="stylesheet" type="text/css" href="assets/app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="assets/app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="assets/app-assets/css/pages/dashboard-ecommerce.css">
+
     <link rel="stylesheet" type="text/css" href="assets/app-assets/css/pages/card-analytics.css">
     <link rel="stylesheet" type="text/css" href="assets/app-assets/css/plugins/forms/wizard.css">
 
@@ -34,7 +34,6 @@
 </head>
 
 <body class="vertical-layout vertical-menu-modern 2-columns navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-
     <?php include 'navbar.php'; ?>
 
     <?php include 'menu.php'; ?>

@@ -178,11 +178,8 @@ $(document).ready(function () {
 })
 // on window resize hide sidebar
 $(window).on("resize", function () {
-  if ($(window).width() <= 991) {
+  if ($(window).outerWidth() >= 991) {
     $(".sidebar-shop").removeClass("show");
     $(".shop-content-overlay").removeClass("show");
-  }
-  else {
-    $(".sidebar-shop").addClass("show");
   }
 });

@@ -1,30 +1,29 @@
 <?php 
     include 'pages/layouts/header.php'; 
-    require 'Mahasiswa.php';
-    require 'pages/modul/user/User.php';
-    require 'pages/modul/prodi/Prodi.php';
+    include 'pages/modul/prodi/Prodi.php';
+    include 'Mahasiswa.php';
 
     $objMahasiswa = new Mahasiswa();
     $arrayResult = $objMahasiswa->allMahasiswa();
-
-    $objUser = new User();
-    $userList = $objUser->allUser();
 
     $objProdi = new Prodi();
     $prodiList = $objProdi->allProdi();
 
     if (isset($_POST['btnSubmit'])) {
         $objMahasiswa->nim = $_POST['nim'];
-        $objMahasiswa->id_user = $_POST['id_user'];
         $objMahasiswa->kode_prodi = $_POST['kode_prodi'];
         $objMahasiswa->email = $_POST['email'];
-        $objMahasiswa->alamat = $_POST['alamat'];
-        $objMahasiswa->gender = $_POST['gender'];
-        $objMahasiswa->no_telp = $_POST['no_telp'];
         $objMahasiswa->angkatan = $_POST['angkatan'];
 
+        $objMahasiswa->nama = $_POST['nama'];
+        $objMahasiswa->gender = $_POST['gender'];
+        $objMahasiswa->alamat = $_POST['alamat'];
+        $objMahasiswa->no_telp = $_POST['no_telp'];
+        $objMahasiswa->password = $_POST['password'];
+
         if (isset($_GET['nim'])) {
-            $objMahasiswa->nim = $_GET['nim'];
+            $objMahasiswa->id_user = $_POST['id_user'];
+            $objMahasiswa->old_nim = $_GET['nim'];
             $objMahasiswa->updateMahasiswa();
         }else{
             $objMahasiswa->addMahasiswa();
@@ -59,21 +58,30 @@
                                     <form action="" id="form-konten" class='form-horizontal' method="POST">
                                         <div class="box-body">
                                             <div class='form-group'>
+                                                <label for='name' class='control-label'>Nama:</label>
+                                                <input type="text" name="nama" class="form-control" placeholder="Nama" value="<?php echo $objMahasiswa->nama ?>" required="">
+                                            </div> 
+
+                                            <div class='form-group'>
+                                                <label for='name' class='control-label'>Email:</label>
+                                                <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $objMahasiswa->email ?>" required="">
+                                            </div>
+
+                                             <?php if (is_null($objMahasiswa->password)) { ?>
+                                                <div class='form-group'>
+                                                    <label for='name' class='control-label'>Password:</label>
+                                                    <input type="password" name="password" class="form-control" placeholder="Password" value="">
+                                                </div> 
+                                            <?php }else{ ?>
+                                                <input type="hidden" name="password" class="form-control" placeholder="Password" value="<?php echo $objMahasiswa->password ?>">
+                                            <?php } ?>
+
+                                            <div class='form-group'>
                                                 <label for='name' class='control-label'>NIM:</label>
                                                 <input type="number" name="nim" class="form-control" placeholder="NIM" value="<?php echo $objMahasiswa->nim ?>" required="">
                                             </div> 
-                                            <div class='form-group'>
-                                                <label for='id_user' class='control-label'>User:</label>
-                                                <select name="id_user" class="form-control">
-                                                    <?php 
-                                                        foreach ($userList as $user) {
-                                                            echo '<option value='.$user->id_user.'>'.$user->name.'</option>';
-                                                        }
-                                                     ?>
-                                                </select>
-                                            </div>     
 
-                                             <div class='form-group'>
+                                            <div class='form-group'>
                                                 <label for='kode_prodi' class='control-label'>Prodi:</label>
                                                 <select name="kode_prodi" class="form-control">
                                                     <?php 
@@ -82,47 +90,13 @@
                                                         }
                                                      ?>
                                                 </select>
-                                            </div>     
+                                            </div>      
 
-                                            <div class='form-group'>
-                                                <label for='name' class='control-label'>Email:</label>
-                                                <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $objMahasiswa->email ?>" required="">
-                                            </div> 
-
-                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>Gender:</label>
-                                               <fieldset>
-                                                    <div class="vs-radio-con">
-                                                        <input type="radio" name="gender" checked value="L">
-                                                        <span class="vs-radio">
-                                                            <span class="vs-radio--border"></span>
-                                                            <span class="vs-radio--circle"></span>
-                                                        </span>
-                                                        <span class="">Laki-laki</span>
-                                                    </div>
-                                                </fieldset>
-                                                <fieldset>
-                                                    <div class="vs-radio-con">
-                                                        <input type="radio" name="gender" value="P">
-                                                        <span class="vs-radio">
-                                                            <span class="vs-radio--border"></span>
-                                                            <span class="vs-radio--circle"></span>
-                                                        </span>
-                                                        <span class="">Perempuan</span>
-                                                    </div>
-                                                </fieldset>
-
-                                            </div> 
-
-                                            <div class='form-group'>
-                                                <label for='name' class='control-label'>Alamat:</label>
-                                                <textarea name="alamat" class="form-control" ><?php echo $objMahasiswa->alamat ?></textarea> 
-                                            </div> 
-
-                                             <div class='form-group'>
-                                                <label for='name' class='control-label'>No. Telp:</label>
-                                                <input type="text" name="no_telp" class="form-control" placeholder="No. Telp" value="<?php echo $objMahasiswa->no_telp ?>" required="">
-                                            </div> 
+                                            <input type="hidden" name="id_user" value="<?php echo $objMahasiswa->id_user ?>">
+                                            <input type="hidden" name="role" value="<?php echo $objMahasiswa->role ?>">
+                                            <input type="hidden" name="gender" value="<?php echo $objMahasiswa->gender ?>">
+                                            <input type="hidden" name="alamat" value="<?php echo $objMahasiswa->alamat ?>">
+                                            <input type="hidden" name="no_telp" value="<?php  echo (($objMahasiswa->no_telp == NULL)) ?  'NULL' : $objMahasiswa->no_telp;?>">
 
                                            <div class='form-group'>
                                                 <label for='name' class='control-label'>Angkatan:</label>

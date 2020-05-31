@@ -4,6 +4,7 @@
 	{
 		public $kode_prodi;
 		public $nama_prodi;
+		public $kaprodi;
 
 		public $result = false;
 		public $message;
@@ -11,6 +12,8 @@
 
 		public function addProdi()
 		{
+			$this->connect();
+
 			$sql = "INSERT INTO prodi(kode_prodi, nama_prodi)
 					VALUES ('$this->kode_prodi', '$this->nama_prodi')";
 
@@ -24,6 +27,8 @@
 
 		public function updateProdi()
 		{
+			$this->connect();
+
 			$sql = "UPDATE prodi
 					SET kode_prodi = '$this->kode_prodi', nama_prodi = '$this->nama_prodi'
 					WHERE kode_prodi = '$this->kode_prodi'";
@@ -38,6 +43,8 @@
 
 		public function deleteProdi()
 		{
+			$this->connect();
+
 			$sql = "DELETE FROM prodi WHERE kode_prodi = '$this->kode_prodi'";
 
 			$this->result = mysqli_query($this->connection, $sql);
@@ -51,7 +58,9 @@
 
 		public function allProdi()
 		{
-			$sql = "SELECT * FROM prodi";
+			$this->connect();
+
+			$sql = "SELECT * FROM `vw_prodi`";
 
 			$result = mysqli_query($this->connection, $sql);
 
@@ -62,8 +71,9 @@
 				while ($data = mysqli_fetch_array($result)) {
 					$objProdi = new Prodi();
 					$objProdi->kode_prodi = $data['kode_prodi'];
-					$objProdi->kode_prodi = $data['kode_prodi'];
 					$objProdi->nama_prodi = $data['nama_prodi'];
+					$objProdi->kaprodi = $data['kaprodi'];
+					$objProdi->nama_kaprodi = $data['nama_kaprodi'];
 					$arrResult[$count] = $objProdi;
 					$count++;
 				}
@@ -74,7 +84,9 @@
 
 		public function getProdi()
 		{
-			$sql = "SELECT * FROM prodi WHERE kode_prodi='$this->kode_prodi'";
+			$this->connect();
+			
+			$sql = "SELECT * FROM `vw_prodi` WHERE kode_prodi='$this->kode_prodi'";
 
 			$result = mysqli_query($this->connection, $sql);
 
@@ -83,6 +95,7 @@
 				$data = mysqli_fetch_assoc($result);
 				$this->kode_prodi = $data['kode_prodi'];
 				$this->nama_prodi = $data['nama_prodi'];
+				$this->kaprodi = $data['kaprodi'];
 			}
 
 			return $arrResult;

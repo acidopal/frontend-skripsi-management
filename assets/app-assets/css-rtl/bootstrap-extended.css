@@ -1693,7 +1693,7 @@ button, html [type='button'], [type='reset'], [type='submit'] {
   margin : 1.3rem 2.2rem 0;
   border-radius : 0.5rem;
   position : fixed;
-  width : calc(100vw - (100vw - 100%) - calc(2.2rem * 2) - 260px);
+  width : calc( 100vw - (100vw - 100%) - calc(2.2rem * 2) - 260px);
   z-index : 12;
   left : 0;
 }
@@ -1836,7 +1836,7 @@ button, html [type='button'], [type='reset'], [type='submit'] {
   color : #7367F0;
 }
 .header-navbar .navbar-container ul.nav li .media-list {
-  max-height : 18.2rem;
+  max-height : 25rem;
 }
 .header-navbar .navbar-container ul.nav li .scrollable-container {
   position : relative;
@@ -1864,6 +1864,30 @@ button, html [type='button'], [type='reset'], [type='submit'] {
 .header-navbar .navbar-container .dropdown-menu-media .dropdown-menu-footer a {
   padding : 0.3rem;
   border-top : 1px solid #DAE1E7;
+}
+.header-navbar .navbar-container .dropdown-menu-media.dropdown-cart.empty-cart:before {
+  background : #FFFFFF;
+  border-color : rgba(0, 0, 0, 0.1);
+}
+.header-navbar .navbar-container .dropdown-menu-media.dropdown-cart .cart-item {
+  color : #626262;
+}
+.header-navbar .navbar-container .dropdown-menu-media.dropdown-cart .media {
+  padding : 0;
+}
+.header-navbar .navbar-container .dropdown-menu-media.dropdown-cart .media .media-left {
+  width : 100px;
+  text-align : center;
+  padding-left : 0;
+  margin-left : 1rem;
+}
+.header-navbar .navbar-container .dropdown-menu-media.dropdown-cart .media .media-left img {
+  height : 100%;
+}
+.header-navbar .navbar-container .dropdown-menu-media.dropdown-cart .media .media-body {
+  padding : 1rem;
+  padding-right : 0;
+  overflow : hidden;
 }
 .header-navbar.navbar-without-menu .navbar-container {
   margin-right : 0;
@@ -2090,8 +2114,7 @@ button, html [type='button'], [type='reset'], [type='submit'] {
     float : none;
     width : auto;
     margin-top : 0;
-    max-height : 400px;
-    overflow-x : hidden;
+    overflow : hidden;
   }
   .header-navbar .navbar-container .dropdown-user .dropdown-menu-right {
     left : 0 !important;
@@ -2316,7 +2339,7 @@ body[data-col='1-column'] .header-navbar.floating-nav {
 
 @media (max-width: 575.98px) {
   .header-navbar.floating-nav {
-    width : calc(100vw - (100vw - 100%) - 3.5rem) !important;
+    width : calc(100vw - (100vw - 100%) - 2.4rem) !important;
     margin-right : 1.2rem;
     margin-left : 1.2rem;
   }

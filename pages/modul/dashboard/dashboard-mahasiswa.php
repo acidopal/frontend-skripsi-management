@@ -1,7 +1,27 @@
-<?php 
-    include 'pages/layouts/header.php'; 
-    include 'pages/authorization-login.php'; 
-?>
+<?php
+     include 'pages/layouts/header.php';
+     include 'pages/authorization-login.php';
+     require 'pages/modul/skripsi/Skripsi.php';
+
+     $objSkripsi = new Skripsi();
+
+    if(isset($_POST['judul_skripsi'])){
+        $objSkripsi->judul_skripsi = $_POST['judul_skripsi'];
+        $objSkripsi->nim = $_POST['nim'];
+        $objSkripsi->topik = $_POST['topik'];
+        $objSkripsi->abstrak_id = $_POST['abstrak_id'];
+        $objSkripsi->abstrak_en = $_POST['abstrak_en'];
+        $objSkripsi->file_proposal = $_POST['file_proposal'];
+        $objSkripsi->created_date = $_POST['created_date'];
+
+        $objSkripsi->addSkripsi();
+
+        echo "<script> alert('$objSkripsi->message');</script>";
+        if ($objSkripsi->result) {
+            echo "<script> window.location = 'index.php?p=dashboard-mahasiswa';</script>";
+        }
+    }
+ ?>
 
 <div class="app-content content">
     <div class="content-overlay"></div>
@@ -10,7 +30,55 @@
         <div class="content-header row">
         </div>
         <div class="content-body">
-              <section id="number-tabs">
+             <?php 
+                if ($_SESSION['role'] == 'Admin') {
+            ?>
+            <section id="dashboard">
+                <div class="row">
+                    <div class="col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body">
+                                  <div class="row">
+                                      <div class="col-md-1">
+                                            Cari Skripsi
+                                      </div>
+                                      <div class="col-md-4">
+                                            <fieldset class="form-group position-relative has-icon-left mx-1 my-0 w-100">
+                                                <input type="text" class="form-control round" id="chat-search" placeholder="Cari Pendaftaran Skripsi">
+                                                <div class="form-control-position">
+                                                    <i class="feather icon-search"></i>
+                                                </div>
+                                            </fieldset>
+                                      </div>
+                                      <div class="col-md-2">
+                                            <fieldset class="form-group">
+                                                <select class="form-control" id="basicSelect">
+                                                    <option>Tahun</option>
+                                                    <option>Angkatan</option>
+                                                    <option>Jurusan</option>
+                                                    <option>Topik</option>
+                                                </select>
+                                            </fieldset>
+                                      </div>
+                                      <div class="col-md-3">
+                                           <button type="button" class="btn btn-relief-primary mr-1 mb-1 waves-effect waves-light">Cari</button>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <?php
+              }
+            ?>
+
+            <?php 
+                if ($_SESSION['role'] == 'Mahasiswa') {
+            ?>
+               <section id="number-tabs">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -20,128 +88,58 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <p>Form Pendaftaran Skripsi.</p>
-                                    <form action="#" class="number-tab-steps wizard-circle">
-
-                                        <!-- Step 1 -->
-                                        <h6>Step 1</h6>
+                                    <form action="#" method="POST" class="number-tab-steps wizard-circle" enctype="multipart/form-data">
+                                        <h6>Judul & Topik</h6>
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label for="firstName1">First Name </label>
-                                                        <input type="text" class="form-control" id="firstName1">
+                                                        <label for="judul_skripsi">Judul Skripsi </label>
+                                                        <input type="text" class="form-control" id="judul_skripsi" name="judul_skripsi" placeholder="Judul Skripsi">
+                                                        <input type="hidden" class="form-control" id="created_date" name="created_date" value="<?php echo date("Y-m-d"); ?>">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label for="lastName1">Last Name</label>
-                                                        <input type="text" class="form-control" id="lastName1">
+                                                        <label for="topik">Topik Skripsi</label>
+                                                        <input type="text" class="form-control" id="topik" name="topik" placeholder="Topik Skripsi">
+                                                        <input type="hidden" class="form-control" id="nim" name="nim" value="<?php echo $_SESSION['nim']; ?>">
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="emailAddress1">Email</label>
-                                                        <input type="email" class="form-control" id="emailAddress1">
-                                                    </div>
-                                                </div>
-
-                                               <!--  <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="location1">City</label>
-                                                        <select class="custom-select form-control" id="location1" name="location">
-                                                            <option value="new-york">New York</option>
-                                                            <option value="chicago">Chicago</option>
-                                                            <option value="san-francisco">San Francisco</option>
-                                                            <option value="boston">Boston</option>
-                                                        </select>
-                                                    </div>
-                                                </div> -->
                                             </div>
                                         </fieldset>
 
                                         <!-- Step 2 -->
-                                        <h6>Step 2</h6>
+                                        <h6>Abstrak</h6>
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="proposalTitle1">Proposal Title</label>
-                                                        <input type="text" class="form-control" id="proposalTitle1">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="jobtitle">Job Title</label>
-                                                        <input type="text" class="form-control" id="jobtitle">
+                                                  <div class="form-group">
+                                                        <label for="abstrak_id">Abstrak Indonesia :</label>
+                                                        <textarea name="abstrak_id" id="abstrak_id" rows="5" class="form-control" placeholder="Abstrak Indonesia"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label for="shortDescription1">Short Description :</label>
-                                                        <textarea name="shortDescription" id="shortDescription1" rows="5" class="form-control"></textarea>
+                                                        <label for="abstrak_en">Abstrak Inggris :</label>
+                                                        <textarea name="abstrak_en" id="abstrak_en" rows="5" class="form-control" placeholder="Abstrak Inggris"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </fieldset>
 
                                         <!-- Step 3 -->
-                                        <h6>Step 3</h6>
+                                        <h6>File Proposal</h6>
                                         <fieldset>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="eventName1">Event Name :</label>
-                                                        <input type="text" class="form-control" id="eventName1">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="eventType1">Event Status :</label>
-                                                        <select class="custom-select form-control" id="eventType1" data-placeholder="Type to search cities" name="eventType1">
-                                                            <option value="Banquet">Planning</option>
-                                                            <option value="Fund Raiser">In Process</option>
-                                                            <option value="Dinner Party">Finished</option>
-                                                        </select>
-                                                    </div>
+                                            <div class="row mb-5">
+                                                <div class="col-sm-3">
                                                 </div>
-
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="eventLocation1">Event Location :</label>
-                                                        <select class="custom-select form-control" id="eventLocation1" name="location">
-                                                            <option value="new-york">New York</option>
-                                                            <option value="chicago">Chicago</option>
-                                                            <option value="san-francisco">San Francisco</option>
-                                                            <option value="boston">Boston</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group d-flex align-items-center pt-md-2">
-                                                        <label class="mr-2">Requirements :</label>
-                                                        <div class="c-inputs-stacked">
-                                                            <div class="d-inline-block mr-2">
-                                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                    <input type="checkbox" value="false">
-                                                                    <span class="vs-checkbox">
-                                                                        <span class="vs-checkbox--check">
-                                                                            <i class="vs-icon feather icon-check"></i>
-                                                                        </span>
-                                                                    </span>
-                                                                    <span class="">Staffing</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-inline-block">
-                                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                    <input type="checkbox" value="false">
-                                                                    <span class="vs-checkbox">
-                                                                        <span class="vs-checkbox--check">
-                                                                            <i class="vs-icon feather icon-check"></i>
-                                                                        </span>
-                                                                    </span>
-                                                                    <span class="">Catering</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <label for="file_proposal">Abstrak Indonesia :</label>
+                                                    <input name="file_proposal" type="file" accept="application/pdf, application/vnd.ms-excel" class="form-control"/>
+                                                </div>
+                                                <div class="col-sm-3">
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -152,6 +150,9 @@
                     </div>
                 </div>
             </section>
+            <?php
+                  }
+            ?>
         </div>
     </div>
 </div>

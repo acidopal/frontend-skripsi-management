@@ -1,17 +1,22 @@
-<?php 
-	
-	class Connection
-	{
-		private $host = 'localhost';
-		private $user = 'root';
-		private $pwd = 'Naufal86.';
-		private $dbName = 'skripsi_management';
+<?php
 
-		function __construct()
-		{
-			$conn = mysqli_connect($this->host, $this->user, $this->pwd);
-			$dbSelect = mysqli_select_db($conn, $this->dbName);
-			$this->connection = $conn;
-		}
+class Connection{
+	
+   private $host = "localhost";
+   private $struser = "root";
+   private $strpassword = "Naufal86.";
+   private $strdbname = "skripsi_management";   
+   public $connection;
+      
+	function __construct() {
+	   $this->connect();
 	}
- ?>
+	
+	function connect()
+	{
+	    $conn = mysqli_connect($this->host,$this->struser, $this->strpassword);
+		mysqli_select_db($conn, $this->strdbname);
+		$this->connection = $conn;	
+	}
+}
+?>

@@ -1,20 +1,33 @@
 <?php 
-	
+	include 'pages/modul/mahasiswa/Mahasiswa.php';
+
 	class User extends Connection
 	{
 		public $id_user;
-		public $name;
+		public $nama;
 		public $password;
-		public $email;
+		public $old_password;
 		public $role;
+		public $email;
+		public $gender;
+		public $alamat;
+		public $no_telp;
+
 		public $result = false;
 		public $message;
 
+		public $mahasiswa;
+
+		function __construct() {						
+			$this->mahasiswa = new Mahasiswa();
+		}
 
 		public function addUser()
 		{
-			$sql = "INSERT INTO user(id_user, name, email, password, role)
-					VALUES ('$this->id_user', '$this->name', '$this->email', '$this->password', '$this->role')";
+			$this->connect();
+			
+			$sql = "INSERT INTO user(nama, email, password, role, gender, alamat, no_telp)
+					VALUES ('$this->nama',  '$this->email', '$this->password', '$this->role', '$this->gender', '$this->alamat', '$this->no_telp')";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -26,8 +39,10 @@
 
 		public function updateUser()
 		{
+			$this->connect();
+
 			$sql = "UPDATE user
-					SET id_user = '$this->id_user', name = '$this->name', email = '$this->email', password = '$this->password', role = '$this->role'
+					SET id_user = '$this->id_user', nama = '$this->nama', email = '$this->email', password = '$this->password', role = '$this->role', gender =  '$this->gender', alamat = '$this->alamat', no_telp = '$this->no_telp'
 					WHERE id_user = '$this->id_user'";
 
 			$this->result = mysqli_query($this->connection, $sql);
@@ -40,6 +55,8 @@
 
 		public function deleteUser()
 		{
+			$this->connect();
+
 			$sql = "DELETE FROM user WHERE id_user = '$this->id_user'";
 
 			$this->result = mysqli_query($this->connection, $sql);
@@ -53,6 +70,8 @@
 
 		public function allUser()
 		{
+			$this->connect();
+
 			$sql = "SELECT * FROM user";
 
 			$result = mysqli_query($this->connection, $sql);
@@ -64,10 +83,13 @@
 				while ($data = mysqli_fetch_array($result)) {
 					$objUser = new User();
 					$objUser->id_user = $data['id_user'];
-					$objUser->name = $data['name'];
 					$objUser->email = $data['email'];
 					$objUser->password = $data['password'];
-					$objUser->role = $data['role'];
+					$objUser->role = $data['role'];				
+					$objUser->nama = $data['nama'];	
+					$objUser->gender = $data['gender'];
+					$objUser->alamat = $data['alamat'];
+					$objUser->no_telp = $data['no_telp'];			
 					$arrResult[$count] = $objUser;
 					$count++;
 				}
@@ -78,6 +100,8 @@
 
 		public function getUser()
 		{
+			$this->connect();
+
 			$sql = "SELECT * FROM user WHERE id_user='$this->id_user'";
 
 			$result = mysqli_query($this->connection, $sql);
@@ -87,12 +111,96 @@
 				$data = mysqli_fetch_assoc($result);
 				$this->id_user = $data['id_user'];
 				$this->email = $data['email'];
-				$this->name = $data['name'];
 				$this->password = $data['password'];
 				$this->role = $data['role'];
+				$this->nama = $data['nama'];
+				$this->email = $data['email'];
+				$this->gender = $data['gender'];
+				$this->alamat = $data['alamat'];
+				$this->no_telp = $data['no_telp'];
+			}
+		}
+
+		public function registerUser()
+		{
+			$this->connect();
+
+			$sql = "INSERT INTO user(nama, email, password, role, gender, alamat, no_telp)
+					VALUES ('$this->nama', '$this->email', '$this->password', '$this->role', null, null, null)";
+
+			if (mysqli_query($this->connection, $sql)) {
+			  $this->id_user = mysqli_insert_id($this->connection);
+			} else {
+			  echo "Error: " . $sql . "<br>" . mysqli_error($this->connection);
+			}
+			if ($this->id_user > 0) {
+				$sql = "INSERT INTO mahasiswa(nim, id_user, kode_prodi, angkatan)
+					VALUES ('".$this->mahasiswa->nim."', '$this->id_user', '".$this->mahasiswa->kode_prodi."', '".$this->mahasiswa->angkatan."')";
+
+					$this->result = mysqli_query($this->connection, $sql) or die(mysqli_error($this->connection));;
 			}
 
-			return $arrResult;
+			if ($this->result) 
+				$this->message = 'Data berhasil ditambahkan!';
+			else
+				$this->message = 'Data gagal ditambahkan!';
+		}	
+
+		public function validateEmail($email)
+		{
+			$this->connect();
+
+			$sql = "SELECT * FROM user
+					WHERE email = '$email'";
+
+			$result = mysqli_query($this->connection, $sql) or die(mysqli_error($this->connection));;
+			
+			if (mysqli_num_rows($result) == 1) {
+				$this->result = true;
+			}
+		}
+
+		public function validateLogin($email, $password)
+		{
+			$this->connect();
+
+			$sql = "SELECT * FROM user WHERE email = '$email'";
+
+			$result = mysqli_query($this->connection, $sql) or die(mysqli_error($this->connection));
+			
+			if (mysqli_num_rows($result) == 1) {
+				$this->result = true;
+				$data = mysqli_fetch_assoc($result);
+				$this->id_user = $data['id_user'];
+				$this->nama = $data['nama'];
+				$this->email = $data['email'];
+				$this->role = $data['role'];
+				$this->password = $data['password'];
+
+				if ($data['role'] == 'Mahasiswa') {
+					$sql = "SELECT * FROM mahasiswa WHERE id_user = '$this->id_user'";
+					$resultMahasiswa = mysqli_query($this->connection, $sql) or die(mysqli_error($this->connection));
+					if (mysqli_num_rows($result) == 1) {
+						$dataMahasiswa = mysqli_fetch_assoc($resultMahasiswa);
+						$this->nim = $dataMahasiswa['nim'];
+						$this->kode_prodi = $dataMahasiswa['kode_prodi'];
+						$this->result = true;
+					}
+				}elseif ($data['role'] == 'Dosen') {
+					$sql = "SELECT * FROM dosen WHERE id_user = '$this->id_user'";
+					$resultDosen = mysqli_query($this->connection, $sql) or die(mysqli_error($this->connection));
+					if (mysqli_num_rows($result) == 1) {
+						$dataDosen = mysqli_fetch_assoc($resultDosen);
+						$this->nidn = $dataDosen['nidn'];
+						$this->kode_prodi = $dataDosen['kode_prodi'];
+						$this->result = true;
+					}
+				}
+
+				if(password_verify($password, $this->password)) {
+			 		return $result = false;
+				} 
+			}
 		}
 
 	}

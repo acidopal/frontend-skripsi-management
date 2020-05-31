@@ -53,6 +53,7 @@
 
     // Month and Year Select Picker
     $('.pickadate-months-year').pickadate({
+        formatSubmit: 'yyyy-mm-dd',
         selectYears: true,
         selectMonths: true
     });

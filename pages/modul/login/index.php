@@ -1,39 +1,43 @@
 <?php
-    require './pages/modul/register/User.php';
+    require './pages/modul/user/User.php';
 
-    if (isset($_SESSION)) {
-        if (isset($_POST['btnSubmit'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+    if (isset($_POST['btnSubmit'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-            $objUser = new User();
-            $objUser->validateLogin($email, $password);
+        $objUser = new User();
+        $objUser->validateLogin($email, $password);
 
-            if ($objUser->result) {
-                if (!isset($_SESSION)) {
-                    session_start();
-                }
-
-                $_SESSION['id_user'] = $objUser->id_user;
-                $_SESSION['name'] = $objUser->name;
-                $_SESSION['email'] = $objUser->email;
-                $_SESSION['role'] = $objUser->role;
-
-                echo "<script> alert('Login berhasil!');</script>";
-
-                if ($objUser->role = 'mahasiswa') {
-                    echo "<script> window.location = 'index.php?p=dashboard-mahasiswa';</script>";
-                }else if ($objUser->role = 'dosen') {
-                    echo "<script> window.location = 'index.php?p=dashboard-dosen';</script>";
-                }else if ($objUser->role = 'admin') {
-                    echo "<script> window.location = 'index.php?p=dashboard-admin';</script>";
-                }
-            }else{
-               echo "<script> alert('Email dan password tidak sesuai!');</script>";
+        if ($objUser->result) {
+            if (!isset($_SESSION)) {
+                session_start();
             }
+
+            $_SESSION['id_user'] = $objUser->id_user;
+            $_SESSION['nama'] = $objUser->nama;
+            $_SESSION['email'] = $objUser->email;
+            $_SESSION['role'] = $objUser->role;
+            
+            if ($objUser->role == 'Mahasiswa') {
+                 $_SESSION['nim'] = $objUser->nim;
+                 $_SESSION['kode_prodi'] = $objUser->kode_prodi;
+            }elseif ($objUser->role == 'Dosen') {
+                 $_SESSION['nidn'] = $objUser->nidn;
+                 $_SESSION['kode_prodi'] = $objUser->kode_prodi;
+            }
+
+            echo "<script> alert('Login berhasil!');</script>";
+
+            if ($objUser->role == 'Mahasiswa') {
+                echo "<script> window.location = 'index.php?p=dashboard-mahasiswa';</script>";
+            }elseif ($objUser->role == 'Dosen') {
+                echo "<script> window.location = 'index.php?p=dashboard-dosen';</script>";
+            }elseif ($objUser->role == 'Admin') {
+                echo "<script> window.location = 'index.php?p=dashboard-admin';</script>";
+            }
+        }else{
+           echo "<script> alert('Email dan password tidak sesuai!');</script>";
         }
-    }else{
-         echo "<script> window.location = 'index.php?p=dashboard';</script>";
     }
 ?>
 <!DOCTYPE html>
@@ -78,7 +82,10 @@
                     <div class="col-xl-8 col-11 d-flex justify-content-center">
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
-                                <div class="col-lg-12 col-12 p-0">
+                                  <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
+                                    <img src="assets/app-assets/images/pages/login.png" alt="branding logo">
+                                </div>
+                                <div class="col-lg-6 col-12 p-0">
                                     <div class="card rounded-0 mb-0 px-2">
                                         <div class="card-header pb-1">
                                             <div class="card-title">
@@ -118,7 +125,7 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right"><a href="auth-forgot-password.html" class="card-link">Forgot Password?</a></div>
+                                                        <!-- <div class="text-right"><a href="auth-forgot-password.html" class="card-link">Forgot Password?</a></div> -->
                                                     </div>
                                                     <a href="index.php?p=register" class="btn btn-outline-primary float-left btn-inline">Register</a>
                                                     <button type="submit" class="btn btn-primary float-right btn-inline" name="btnSubmit">Login</button>

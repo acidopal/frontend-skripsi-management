@@ -29,7 +29,6 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Nama</th>
                                                         <th>Email </th>
                                                         <th>Role </th>
                                                         <th>Action</th>
@@ -44,7 +43,6 @@
                                                             foreach ($arrayResult as $dataUser) {
                                                                 echo '<tr>';
                                                                     echo '<td>'.$no++.'</td>';
-                                                                    echo '<td>'.$dataUser->name.'</td>';
                                                                     echo '<td>'.$dataUser->email.'</td>';
                                                                     echo '<td>'.$dataUser->role.'</td>';
                                                                     echo '
@@ -60,6 +58,10 @@
                                                      ?>
                                                 </tbody>
                                             </table>
+
+                                            <a href="?p=report-user" class="btn btn-primary mb-2" title="Tambah Atlet" style="color: #fff">
+                                            <i class="feather icon-plus"></i>&nbsp; Download
+                                        </a>
                                         </div>
                                     </div>
                                 </div>

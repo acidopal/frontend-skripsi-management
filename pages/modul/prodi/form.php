@@ -1,8 +1,13 @@
 <?php 
     include 'pages/layouts/header.php'; 
     require 'Prodi.php';
+    require 'pages/modul/dosen/Dosen.php';
+
     $objProdi = new Prodi();
     $arrayResult = $objProdi->allProdi();
+
+    $objDosen = new Dosen();
+    $dosenList = $objDosen->allDosen();
 
     if (isset($_POST['btnSubmit'])) {
         $objProdi->kode_prodi = $_POST['kode_prodi'];
@@ -52,6 +57,17 @@
                                                 <label for='name' class='control-label'>Nama Prodi:</label>
                                                 <input type="text" name="nama_prodi" class="form-control" placeholder="Nama Prodi" value="<?php echo $objProdi->nama_prodi ?>" required="">
                                             </div> 
+
+                                            <div class='form-group'>
+                                                <label for='kaprodi' class='control-label'>Kepala Prodi:</label>
+                                                <select name="kaprodi" class="form-control">
+                                                    <?php 
+                                                        foreach ($dosenList as $dosen) {
+                                                            echo '<option value="'.$dosen->nidn.'"">'.$dosen->nama.' - ' .$dosen->nidn.'</option>';
+                                                        }
+                                                     ?>
+                                                </select>
+                                            </div>     
                                         </div>    
                                        <div class="box-footer">
                                             <input type="submit" class="btn btn-primary pull-right" value="Simpan" name="btnSubmit">

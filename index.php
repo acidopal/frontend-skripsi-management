@@ -1,5 +1,6 @@
 <?php
 	require "inc.koneksi.php";
+	require __DIR__.'/vendor/autoload.php';
 
 	$pages_dir = 'pages/modul';
 	if (!empty($_GET['p'])) {
@@ -13,6 +14,8 @@
 			(in_array($p, $pages) ? include $pages_dir.'/'.$p.'/index.php' : include 'pages/error/404.php');  
 		}else if ($request[0] == 'logout'){
 			(in_array('login', $pages) ? include $pages_dir.'/login/logout.php' : include 'pages/error/404.php');  
+		}else if ($request[0] == 'report') {
+			(in_array($request[1], $pages) ? include $pages_dir.'/'.$request[1].'/report.php' : include 'pages/error/404.php');  
 		}else if ($request[0] == 'form') {
 			(in_array($request[1], $pages) ? include $pages_dir.'/'.$request[1].'/form.php' : include 'pages/error/404.php');  
 		}else if ($request[0] == 'delete'){
@@ -25,7 +28,6 @@
 			(in_array($request[0], $pages) ? include $pages_dir.'/'.$request[0].'/'.$request[0].'-dosen.php' : include 'pages/error/404.php');  
 		}
 	}else{
-		// $session = true;
 	  	if (!isset($_SESSION)) {
             session_start();
         }

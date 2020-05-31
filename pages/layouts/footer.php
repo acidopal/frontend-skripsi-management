@@ -17,7 +17,21 @@
     <script src="assets/app-assets/js/core/app.js"></script>
     <script src="assets/app-assets/js/scripts/components.js"></script>
 
-    <script src="assets/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <!-- <script src="assets/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script> -->
     <script src="assets/app-assets/js/scripts/forms/wizard-steps.js"></script>
+
+    <script src="assets/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+    <script src="assets/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+    <script src="assets/app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+    <script src="assets/app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
+
+    <script src="assets/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
+
+    <script>
+    $(document).on("click", ".open-modal", function () {
+         var skripsiId = $(this).data('id');
+         $(".modal-body #skripsiId").val( skripsiId );
+    });
+    </script>
 </body>
 </html>

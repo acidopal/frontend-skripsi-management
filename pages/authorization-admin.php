@@ -7,7 +7,7 @@
          echo "<script> alert('Silahkan Login untuk mengakses halaman ini!');</script>";
    		 echo "<script> window.location = 'index.php';</script>";
 	}else{
-		if ($_SESSION['role'] != 'admin') {
+		if ($_SESSION['role'] != 'Admin') {
 			 echo "<script> alert('Hanya admin yang dapat mengakses halaman ini!');</script>";
    			 echo "<script> window.location = 'index.php';</script>";
 		}

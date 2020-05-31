@@ -13,15 +13,29 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" navigation-header"><span>Apps</span>
             </li>
-            <li class="<?php echo($_GET[p] == 'dashboard' ? 'active' : '');?> nav-item"><a href="?p=dashboard"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
+            <li class="<?php echo($_GET[p] == 'dashboard-mahasiswa' || $_GET[p] == 'dashboard-dosen' || $_GET[p] == 'dashboard-admin'  ? 'active' : '');?> nav-item">
+                <a href="<?php 
+                    if (!empty($_SESSION)) {
+                        echo (($_SESSION['role'] == 'Mahasiswa')) ?  '?p=dashboard-mahasiswa' : '';
+                        echo (($_SESSION['role'] == 'Dosen')) ?  '?p=dashboard-dosen': '';
+                        echo (($_SESSION['role'] == 'Admin')) ?  '?p=dashboard-admin' : '';
+                    }
+                 ?>"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
             </li>
+            <?php
+                if ($_SESSION['role'] == 'Dosen' || $_SESSION['role'] == 'Mahasiswa') {
+            ?>
             <li class="<?php echo($_GET[p] == 'skripsi' ? 'active' : '');?>  nav-item"><a href="?p=skripsi"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Skripsi">Skripsi</span></a>
             </li>
-            <li class="<?php echo($_GET[p] == 'bimbingan-skripsi' ? 'active' : '');?> nav-item"><a href="?p=bimbingan-skripsi"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Bimbingan Skripsi">Bimbingan Skripsi</span></a>
+             <?php 
+                }
+             ?>
+            <li class="<?php echo($_GET[p] == 'bimbingan' ? 'active' : '');?> nav-item"><a href="?p=bimbingan"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Bimbingan Skripsi">Bimbingan Skripsi</span></a>
             </li>
 
             <?php
-                if ($_SESSION['role'] == 'admin') {
+                if (!empty($_SESSION)) {
+                    if ($_SESSION['role'] == 'Admin') {
             ?>
             <li class="nav-item"><a href="#"><i class="feather icon-copy"></i><span class="menu-title" data-i18n="Master">Master</span></a>
                 <ul class="menu-content">
@@ -37,6 +51,7 @@
                 </ul>
             </li>
             <?php 
+                    }
                 }
              ?>
         </ul>

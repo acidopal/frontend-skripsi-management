@@ -31,6 +31,7 @@
                                                         <th>No</th>
                                                         <th>Kode Prodi</th>
                                                         <th>Nama Prodi</th>
+                                                        <th>Kepala Prodi</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -45,6 +46,7 @@
                                                                     echo '<td>'.$no++.'</td>';
                                                                     echo '<td>'.$dataProdi->kode_prodi.'</td>';
                                                                     echo '<td>'.$dataProdi->nama_prodi.'</td>';
+                                                                    echo '<td>'.$dataProdi->nama_kaprodi.'</td>';
                                                                     echo '
                                                                         <td>
                                                                             <a href="index.php?p=form-prodi&kode_prodi='.$dataProdi->kode_prodi.'" class="btn btn-warning mr-1 mb-1 waves-effect waves-light"><i class="fa fa-edit"></i> Edit</a>

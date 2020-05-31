@@ -29,18 +29,27 @@
                                         </div><small>
                                             <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">9 hours ago</time></small>
                                     </div>
-                                </a>></li>
-                            <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
+                                </a></li>
                         </ul>
                     </li>
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">
+                                <?php  
+                                      echo (!empty($_SESSION)) ? $_SESSION['nama'] : '';
+                                        echo (($_SESSION['role'] == 'Mahasiswa') || ($_SESSION['role'] == 'Dosen')) ?  ' ('.$_SESSION['kode_prodi'].')' : '';
+                                ?>
+
+                            </span><span class="user-status"> 
                                 <?php 
-                                    echo $_SESSION['name'];
+                                    if (!empty($_SESSION)) {
+                                        echo (($_SESSION['role'] == 'Mahasiswa')) ?  'NIM Mahasiswa : '.$_SESSION['nim'] : '';
+                                        echo (($_SESSION['role'] == 'Dosen')) ?  'NIDN Dosen : '.$_SESSION['nidn'] : '';
+                                        echo (($_SESSION['role'] == 'Admin')) ?  'Admin' : '';
+                                    }
                                  ?>
-                            </span><span class="user-status">1810130010</span></div><span><img class="round" src="./assets/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
+                                 </span></div><span><img class="round" src="./assets/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a>
+                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="index.php?p=profile"><i class="feather icon-user"></i> Edit Profile</a>
                             <div class="dropdown-divider"></div><a class="dropdown-item" href="index.php?p=logout"><i class="feather icon-power"></i> Logout</a>
                         </div>
                     </li>

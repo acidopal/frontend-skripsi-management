@@ -312,15 +312,28 @@
   });
 
   // Execute below code only if we find hammer js for touch swipe feature on small screen
-  if (typeof Hammer !== "undefined") {
+  if (typeof Hammer !== 'undefined') {
+
+    var rtl;
+    if ($('html').data('textdirection') == 'rtl') {
+      rtl = true;
+    }
+
     // Swipe menu gesture
-    var swipeInElement = document.querySelector(".drag-target");
+    var swipeInElement = document.querySelector('.drag-target'),
+    swipeInAction = 'panright',
+    swipeOutAction = 'panleft';
+
+    if(rtl === true){
+      swipeInAction = 'panleft';
+      swipeOutAction = 'panright';
+    }
 
     if ($(swipeInElement).length > 0) {
       var swipeInMenu = new Hammer(swipeInElement);
 
-      swipeInMenu.on("panright", function (ev) {
-        if ($body.hasClass("vertical-overlay-menu")) {
+      swipeInMenu.on(swipeInAction, function (ev) {
+        if ($body.hasClass('vertical-overlay-menu')) {
           $.app.menu.open();
           return false;
         }
@@ -329,19 +342,19 @@
 
     // menu swipe out gesture
     setTimeout(function () {
-      var swipeOutElement = document.querySelector(".main-menu");
+      var swipeOutElement = document.querySelector('.main-menu');
       var swipeOutMenu;
 
       if ($(swipeOutElement).length > 0) {
         swipeOutMenu = new Hammer(swipeOutElement);
 
-        swipeOutMenu.get("pan").set({
+        swipeOutMenu.get('pan').set({
           direction: Hammer.DIRECTION_ALL,
           threshold: 100
         });
 
-        swipeOutMenu.on("panleft", function (ev) {
-          if ($body.hasClass("vertical-overlay-menu")) {
+        swipeOutMenu.on(swipeOutAction, function (ev) {
+          if ($body.hasClass('vertical-overlay-menu')) {
             $.app.menu.hide();
             return false;
           }
@@ -350,13 +363,14 @@
     }, 300);
 
     // menu overlay swipe out gestrue
-    var swipeOutOverlayElement = document.querySelector(".sidenav-overlay");
+    var swipeOutOverlayElement = document.querySelector('.sidenav-overlay');
 
     if ($(swipeOutOverlayElement).length > 0) {
+
       var swipeOutOverlayMenu = new Hammer(swipeOutOverlayElement);
 
-      swipeOutOverlayMenu.on("panleft", function (ev) {
-        if ($body.hasClass("vertical-overlay-menu")) {
+      swipeOutOverlayMenu.on(swipeOutAction, function (ev) {
+        if ($body.hasClass('vertical-overlay-menu')) {
           $.app.menu.hide();
           return false;
         }

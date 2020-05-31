@@ -1,6 +1,10 @@
 <?php 
-    require 'User.php';
-    require 'Mail.php';
+    require './lib/mail/Mail.php';
+    require 'pages/modul/user/User.php';
+    require 'pages/modul/prodi/Prodi.php';
+
+    $objProdi = new Prodi();
+    $prodiList = $objProdi->allProdi();
 
     if (isset($_POST['btnSubmit'])) {
         $email = $_POST['email'];
@@ -10,11 +14,14 @@
         if ($objUser->result) {
            echo "<script> alert('Email sudah terdaftar');</script>";
         }else{
-            $objUser->name =  $_POST['name'];
+            $objUser->nama = $_POST['nama'];
             $objUser->email =  $_POST['email'];
-            $objUser->password =  $_POST['password'];
-            $objUser->role = 'mahasiswa';
-            $objUser->addUser();
+            $objUser->password =  password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $objUser->role = 'Mahasiswa';
+            $objUser->mahasiswa->nim = $_POST['nim'];
+            $objUser->mahasiswa->kode_prodi = $_POST['kode_prodi'];
+            $objUser->mahasiswa->angkatan = $_POST['angkatan'];
+            $objUser->registerUser();
 
             if ($objUser->result) {
                 $message = file_get_contents('./lib/mail/template_email.html');
@@ -22,12 +29,13 @@
 
                 $body = '
                 <span style="font-familiy: Arial, Helvetios; sans-serif : 15px; color: #5769ye">
-                Selamat <b>'.$objUser->name.'</b>, anda telah bergabung pada Skripsi Management System ESQ Business School<br>
+                Selamat <b>'.$objUser->nama.'</b>, anda telah bergabung pada Skripsi Management System ESQ Business School<br>
                 Berikut ini informasi account anda : <br></span>
 
                 <span style="font-familiy: Arial, Helvetios; sans-serif : 15px; color: #5769ye">
-                        Email : '.$objUser->email.'<br>
-                        Password : '.$objUser->password.'<br>
+                    Nama : '.$objUser->nama.'<br>
+                    NIM : '.$objUser->mahasiswa->nim.'<br>
+                    Email : '.$objUser->email.'<br>
                 </span>';
 
                 $footer = 'Silahkan <a href="http://s.id/skrispiManagement" target="_blank" class="btn btn-danger block-center">Login</a> untuk mengakses sistem.';
@@ -37,20 +45,22 @@
                 $message = str_replace("#footer#", $footer, $message);
 
                 $objMail = new Mail();
-                $objMail->SendMail($objUser->email, $objUser->name, 'Registrasi Berhasil -'.$objUser->name, $message);
+                $objMail->SendMail($objUser->email, $objUser->email, 'Registrasi Berhasil', $message);
 
                 if (!isset($_SESSION)) {
-                    session_start();
+                session_start();
                 }
 
                 $_SESSION['id_user'] = $objUser->id_user;
-                $_SESSION['name'] = $objUser->name;
+                $_SESSION['nama'] = $objUser->nama;
                 $_SESSION['email'] = $objUser->email;
                 $_SESSION['role'] = $objUser->role;
-
+                $_SESSION['nim'] = $objUser->mahasiswa->nim;
+                $_SESSION['kode_prodi'] = $objUser->mahasiswa->kode_prodi;
+                
                 echo "<script> alert('Registrasi berhasil!');</script>";
                 echo "<script> window.location = 'index.php?p=login';</script>";
-            }
+                }
         }
     }
  ?>
@@ -60,7 +70,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Login - Skripsi Management System</title>
+    <title>Register - Skripsi Management System</title>
     <link rel="apple-touch-icon" href="assets/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -109,8 +119,8 @@
                                             <div class="card-body pt-0">
                                                 <form action="" method="POST">
                                                     <div class="form-label-group">
-                                                        <input type="text" id="inputName" class="form-control" placeholder="Name" name="name" required>
-                                                        <label for="inputName">Name</label>
+                                                        <input type="text" id="inputNama" class="form-control" placeholder="Nama"  name="nama" required>
+                                                        <label for="inputNama">Nama</label>
                                                     </div>
                                                     <div class="form-label-group">
                                                         <input type="email" id="inputEmail" class="form-control" placeholder="Email"  name="email" required>
@@ -118,8 +128,26 @@
                                                     </div>
                                                     <div class="form-label-group">
                                                         <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-                                                        <label for="inputPassword">Password</label>
+                                                        <label for="iputPassword">Password</label>
                                                     </div>
+                                                    <div class="form-label-group">
+                                                        <input type="number" id="inputNIM" class="form-control" placeholder="NIM"  name="nim" required>
+                                                        <label for="inputNIM">NIM</label>
+                                                    </div>
+                                                    <div class='form-group'>
+                                                        <label for="inputNIM">Prodi</label>
+                                                        <select name="kode_prodi" class="form-control">
+                                                            <?php 
+                                                                foreach ($prodiList as $prodi) {
+                                                                    echo '<option value="'.$prodi->kode_prodi.'"">'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                                }
+                                                             ?>
+                                                        </select>
+                                                    </div>  
+                                                    <div class="form-label-group">
+                                                        <input type="text" id="inputAngkatan" class="form-control" placeholder="Angkatan"  name="angkatan" required>
+                                                        <label for="inputAngkatan">Angkatan</label>
+                                                    </div>   
                                                     <a href="index.php?p=login" class="btn btn-outline-primary float-left btn-inline mb-50">Login</a>
                                                     <button type="submit" class="btn btn-primary float-right btn-inline mb-50" name='btnSubmit'>Register</a>
                                                 </form>
