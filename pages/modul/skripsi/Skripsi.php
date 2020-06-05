@@ -31,7 +31,6 @@
 		public $result = false;
 		public $message;
 
-
 		public function addSkripsi()
 		{
 			$this->connect();
@@ -216,7 +215,7 @@
 			$this->connect();
 
 			$sql = "SELECT * FROM `vw_skripsi` WHERE nim='$this->nim' AND persetujuan=1";
-
+	
 			$result = mysqli_query($this->connection, $sql);
 
 			$arrResult = Array();
@@ -431,8 +430,6 @@
 				return $arrResult;
 			}
 		}
-
-		
-
+			
 	}
  ?>
