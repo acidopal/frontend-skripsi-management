@@ -21,9 +21,13 @@
             if ($objUser->role == 'Mahasiswa') {
                  $_SESSION['nim'] = $objUser->nim;
                  $_SESSION['kode_prodi'] = $objUser->kode_prodi;
+                 $_SESSION['is_kaprodi'] = 0;
             }elseif ($objUser->role == 'Dosen') {
                  $_SESSION['nidn'] = $objUser->nidn;
                  $_SESSION['kode_prodi'] = $objUser->kode_prodi;
+                 $_SESSION['is_kaprodi'] = $objUser->is_kaprodi;
+            }elseif ($objUser->role == 'Admin') {
+                 $_SESSION['is_kaprodi'] = 0;
             }
 
             echo "<script> alert('Login berhasil!');</script>";

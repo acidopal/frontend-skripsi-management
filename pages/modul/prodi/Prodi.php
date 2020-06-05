@@ -14,8 +14,8 @@
 		{
 			$this->connect();
 
-			$sql = "INSERT INTO prodi(kode_prodi, nama_prodi)
-					VALUES ('$this->kode_prodi', '$this->nama_prodi')";
+			$sql = "INSERT INTO prodi(kode_prodi, nama_prodi, kaprodi)
+					VALUES ('$this->kode_prodi', '$this->nama_prodi', '$this->kaprodi')";
 
 			$this->result = mysqli_query($this->connection, $sql);
 

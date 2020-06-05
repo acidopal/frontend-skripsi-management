@@ -1,5 +1,5 @@
 <?php 
-	include 'pages/modul/mahasiswa/Mahasiswa.php';
+	include './pages/modul/mahasiswa/Mahasiswa.php';
 
 	class User extends Connection
 	{
@@ -12,6 +12,7 @@
 		public $gender;
 		public $alamat;
 		public $no_telp;
+		public $is_kaprodi;
 
 		public $result = false;
 		public $message;
@@ -44,6 +45,8 @@
 			$sql = "UPDATE user
 					SET id_user = '$this->id_user', nama = '$this->nama', email = '$this->email', password = '$this->password', role = '$this->role', gender =  '$this->gender', alamat = '$this->alamat', no_telp = '$this->no_telp'
 					WHERE id_user = '$this->id_user'";
+
+			// die(print_r($sql));
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -193,6 +196,7 @@
 						$dataDosen = mysqli_fetch_assoc($resultDosen);
 						$this->nidn = $dataDosen['nidn'];
 						$this->kode_prodi = $dataDosen['kode_prodi'];
+						$this->getDataKaprodi();
 						$this->result = true;
 					}
 				}
@@ -200,6 +204,26 @@
 				if(password_verify($password, $this->password)) {
 			 		return $result = false;
 				} 
+			}
+		}
+
+		public function getDataKaprodi()
+		{
+			$this->connect();
+
+			$kode_prodi = $this->kode_prodi;
+
+			$sql = "SELECT u.email, d.nidn FROM prodi p LEFT JOIN dosen d ON p.kaprodi = d.nidn LEFT JOIN user u ON u.id_user = d.id_user WHERE p.kode_prodi = '$kode_prodi'";
+
+			$result = mysqli_query($this->connection, $sql);
+			if (mysqli_num_rows($result) == 1) {
+				$data = mysqli_fetch_assoc($result);
+
+				if ($data['nidn'] == $this->nidn) {
+					$this->is_kaprodi = 1;
+				}else{
+					$this->is_kaprodi = 0;
+				}
 			}
 		}
 

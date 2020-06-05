@@ -38,8 +38,9 @@
 
 			$rand = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"), 0, 5);
 			$id_skripsi = $rand.$this->nim;
+			$nama_file = $rand.'_'.$_FILES['file_proposal']['name'];
 
-			$sql = "INSERT INTO skripsi (id_skripsi, nim, judul_skripsi, topik, abstrak_id, abstrak_en, file_proposal, persetujuan, alasan, tgl_persetujuan, created_date) VALUES ('$id_skripsi' ,'$this->nim', '$this->judul_skripsi','$this->topik', '$this->abstrak_id', '$this->abstrak_en', '$this->file_proposal', NULL,NULL, NULL, '$this->created_date')";
+			$sql = "INSERT INTO skripsi (id_skripsi, nim, judul_skripsi, topik, abstrak_id, abstrak_en, file_proposal, persetujuan, alasan, tgl_persetujuan, created_date) VALUES ('$id_skripsi' ,'$this->nim', '$this->judul_skripsi','$this->topik', '$this->abstrak_id', '$this->abstrak_en', '$nama_file', NULL,NULL, NULL, '$this->created_date')";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
@@ -49,7 +50,6 @@
 				$ukuran_maks_file = 2000000;
 				$tipe_file= $_FILES['file_proposal']['type'];
 				$lokasi_file = $_FILES['file_proposal']['tmp_name'];
-				$nama_file = $_FILES['file_proposal']['name'].$rand;
 				$ukuran_file = $_FILES['file_proposal']['size'];
 				$folder = './upload/file-proposal/';
 
@@ -80,17 +80,44 @@
 		public function updateSkripsi()
 		{
 			$this->connect();
+			$rand = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"), 0, 5);
+			$nama_file = $rand.'_'.$_FILES['file_proposal']['name'];
 
 			$sql = "UPDATE skripsi
-					SET judul_skripsi = '$this->judul_skripsi', topik = '$this->topik', abstrak_id = '$this->abstrak_id', abstrak_en = '$this->abstrak_en', file_proposal = '$this->file_proposal', persetujuan = '$this->persetujuan', tgl_persetujuan = '$this->tgl_persetujuan', created_date = '$this->created_date', 
+					SET judul_skripsi = '$this->judul_skripsi', topik = '$this->topik', abstrak_id = '$this->abstrak_id', abstrak_en = '$this->abstrak_en', file_proposal = '$nama_file', persetujuan = NULL, tgl_persetujuan = NULL, tgl_persetujuan = NULL, created_date = '$this->created_date' 
 					WHERE id_skripsi = '$this->id_skripsi'";
 
 			$this->result = mysqli_query($this->connection, $sql);
 
-			if ($this->result) 
-				$this->message = 'Data berhasil diperbarui!';
-			else
-				$this->message = 'Data gagal diperbarui!';
+			if ($this->result) {
+				$ukuran_maks_file = 2000000;
+				$tipe_file= $_FILES['file_proposal']['type'];
+				$lokasi_file = $_FILES['file_proposal']['tmp_name'];
+				$ukuran_file = $_FILES['file_proposal']['size'];
+				$folder = './upload/file-proposal/';
+
+				if ($tipe_file != "application/pdf" AND $tipe_file != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" AND $tipe_file != "application/msword") {
+					echo "<script> alert('Hanya Boleh Mengupload File Bertipe pdf/doc/docx!');</script>";
+					echo "<script>window.location = 'index.php?p=dashboard-mahasiswa';</script>";
+				}else{
+						if ($ukuran_file > $ukuran_maks_file) {
+							echo "<script> alert('Ukuran file terlalu besar!');</script>";
+							echo "<script>window.location = 'index.php?p=dashboard-mahasiswa';</script>";
+						}else{
+							$file = scandir($folder, 0);
+							if (in_array($nama_file, $file)) {
+								echo "<script> alert('File Sudah Tersedia!');</script>";
+								echo "<script>window.location = 'index.php?p=dashboard-mahasiswa';</script>";
+							}else{
+								$isSuccessUpload = move_uploaded_file($lokasi_file, $folder.$nama_file);
+							}
+						}
+				}
+
+				$this->message = 'Data berhasil update!';
+			}else{
+				$this->message = 'Data gagal update!';
+			}
 		}
 
 		public function deleteSkripsi()

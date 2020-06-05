@@ -8,11 +8,10 @@
     $objDosen = new Dosen();
     $dosenList = $objDosen->allDosen();
 
-    if ($_SESSION['role'] == 'Dosen') {
-        $checkKaprodi = $objSkripsi->getDataKaprodi();
-       if ($objSkripsi->nidn == $_SESSION['nidn']) {
-            $arrayResult = $objSkripsi->allSkripsi();
+    if ($_SESSION['role'] == 'Dosen' || $_SESSION['role'] == 'Mahasiswa') {
+        $arrayResult = $objSkripsi->allSkripsi();
 
+       if ($_SESSION['is_kaprodi'] == 1) {
              if (isset($_POST['btnSubmitAcc'])) {
                 $objSkripsi->nidn = $_POST['nidn'];
                 $objSkripsi->id_skripsi = $_POST['id_skripsi'];
@@ -34,10 +33,6 @@
                     echo "<script> window.location = 'index.php?p=skripsi';</script>";
                 }
             }
-
-        }else{
-            echo "<script> alert('Anda bukan Kaprodi!');</script>";
-            echo "<script> window.location = 'index.php?p=dashboard-mahasiswa';</script>";
         }
     }
  ?>
@@ -58,7 +53,7 @@
                                 <div class="card-content">
                                     <div class="card-body card-dashboard">
                                         <?php 
-                                        if ($_SESSION['role'] == 'Mahasiswa') {
+                                        if ($_SESSION['role'] == 'Mahasiswa' && empty($arrayResult)) {
                                         ?>
                                             <a href="?p=form-skripsi" class="btn btn-primary mb-2" title="Tambah Atlet" style="color: #fff">
                                                 <i class="feather icon-plus"></i>&nbsp; Pendaftaran Skripsi
@@ -72,11 +67,11 @@
                                                     <tr>
                                                         <th>NIM</th>
                                                         <th>Judul Skripsi</th>
-                                                        <th>Topik</th>
+                                                        <th width="10%">Topik</th>
                                                         <th>Abstrak</th>
                                                         <th>File Proposal</th>
-                                                        <th>Info</th>
-                                                        <th>Perstujuan</th>
+                                                        <th width="20%">Info</th>
+                                                        <th width="10%">Perstujuan</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>

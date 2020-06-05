@@ -1,7 +1,7 @@
 <?php 
-    include 'pages/layouts/header.php'; 
+    include './pages/layouts/header.php'; 
+    require './pages/modul/prodi/Prodi.php';
     require 'User.php';
-    require 'pages/modul/prodi/Prodi.php';
 
     $objUser = new User();
     $arrayResult = $objUser->allUser();
@@ -79,9 +79,9 @@
                                             <div class='form-group'>
                                                 <label for='name' class='control-label'>Role:</label>
                                                 <select name="role" class="form-control" id="role">
-                                                    <option value="Mahasiswa">Mahasiswa</option>
-                                                    <option value="Dosen">Dosen</option>
-                                                    <option value="Admin">Admin</option>  
+                                                    <option value="Mahasiswa" <?php  echo (($objUser->role == "Mahasiswa")) ?  'selected' : ''; ?>>Mahasiswa</option>
+                                                    <option value="Dosen" <?php echo (($objUser->role == "Dosen")) ?  'selected' : ''; ?>>Dosen</option>
+                                                    <option value="Admin" <?php echo (($objUser->role == "Admin")) ?  'selected' : ''; ?>>Admin</option>  
                                                 </select>
                                             </div> 
 
@@ -89,8 +89,13 @@
                                                 <label for='kode_prodi' class='control-label'>Prodi:</label>
                                                 <select name="kode_prodi" class="form-control">
                                                     <?php 
+                                                        $selectedProdi = $objUser->kode_prodi;
                                                         foreach ($prodiList as $prodi) {
-                                                            echo '<option value="'.$prodi->kode_prodi.'"">'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                            if ($prodi->kode_prodi == $selectedProdi) {
+                                                                echo '<option value="'.$prodi->kode_prodi.'" selected>'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                            }else{
+                                                                echo '<option value="'.$prodi->kode_prodi.'">'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                            }
                                                         }
                                                      ?>
                                                 </select>

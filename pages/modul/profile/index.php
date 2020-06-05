@@ -70,21 +70,19 @@
                                                 <input type="hidden" name="old_password" class="form-control" value="<?php echo $objUser->password ?>" >
                                             </div>
 
-                                            <div class='form-group'>
-                                                <label for='name' class='control-label'>Role:</label>
-                                                <select name="role" class="form-control" id="role">
-                                                    <option value="Mahasiswa">Mahasiswa</option>
-                                                    <option value="Dosen">Dosen</option>
-                                                    <option value="Admin">Admin</option>  
-                                                </select>
-                                            </div> 
+                                            <input type="hidden" value="<?php echo $objUser->role ?>" name="role">
 
                                             <div class='form-group'>
                                                 <label for='kode_prodi' class='control-label'>Prodi:</label>
                                                 <select name="kode_prodi" class="form-control">
                                                     <?php 
+                                                        $selectedProdi = $objUser->kode_prodi;
                                                         foreach ($prodiList as $prodi) {
-                                                            echo '<option value="'.$prodi->kode_prodi.'"">'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                            if ($prodi->kode_prodi == $selectedProdi) {
+                                                                echo '<option value="'.$prodi->kode_prodi.'" selected>'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                            }else{
+                                                                echo '<option value="'.$prodi->kode_prodi.'">'.$prodi->nama_prodi.' ('.$prodi->kode_prodi.')'.'</option>';
+                                                            }
                                                         }
                                                      ?>
                                                 </select>

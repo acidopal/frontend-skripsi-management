@@ -11,12 +11,12 @@
     $objSkripsi->nim = $_SESSION['nim'];
     $skripsiList = $objSkripsi->allSkripsiMahasiswa();
 
-    if ($skripsiList > 1) {
+    if (!empty($skripsiList)) {
         $objBimbingan->id_skripsi = $skripsiList[0]->id_skripsi;
         $dospemList = $objBimbingan->getPembimbingSkripsi();
     }else{
         echo "<script> alert('Pengajuan Skripsi Belum Disetujui!');</script>";
-        echo "<script> window.location = 'index.php?p=bimbingan';</script>";
+        echo "<script> window.location = 'index.php?p=dashboard';</script>";
     }
 
     if (isset($_POST['btnSubmit'])) {
@@ -88,8 +88,14 @@
                                                 </div>    
 
                                                 <div class='form-group'>
-                                                    <label for='name' class='control-label'>Penyelesaian:</label>
-                                                    <textarea type="text" name="penyelesaian" class="form-control" placeholder="Penyelesaian" required=""><?php echo $objBimbingan->penyelesaian ?></textarea>
+                                                   <label for='name' class='control-label'>Penyelesaian:</label>
+                                                   <select name="penyelesaian" id="penyelesaian">
+                                                      <option value="20%" <?php echo (($objBimbingan->penyelesaian == "20%")) ?  'selected' : ''; ?>>20%</option>
+                                                      <option value="40%"  <?php echo (($objBimbingan->penyelesaian == "40%")) ?  'selected' : ''; ?>>40%</option>
+                                                      <option value="60%"  <?php echo (($objBimbingan->penyelesaian == "60%")) ?  'selected' : ''; ?>>60%</option>
+                                                      <option value="80%%"  <?php echo (($objBimbingan->penyelesaian == "80%")) ?  'selected' : ''; ?>>80%%</option>
+                                                      <option value="100%%"  <?php echo (($objBimbingan->penyelesaian == "100%")) ?  'selected' : ''; ?>>100%%</option>
+                                                    </select>
                                                 </div>     
 
                                                 <div class='form-group'>

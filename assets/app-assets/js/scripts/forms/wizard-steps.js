@@ -17,7 +17,8 @@ $(".number-tab-steps").steps({
         finish: 'Submit'
     },
     onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
+       var form = $(this);
+        form.submit();
     }
 });
 
@@ -31,7 +32,8 @@ $(".icons-tab-steps").steps({
         finish: 'Submit'
     },
     onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
+          var form = $(this);
+        form.submit();
     }
 });
 

@@ -14,7 +14,7 @@
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">1</span></a>
+                   <!--  <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">1</span></a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
                                 <div class="dropdown-header m-0 p-2">
@@ -31,14 +31,14 @@
                                     </div>
                                 </a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">
                                 <?php  
                                       echo (!empty($_SESSION)) ? $_SESSION['nama'] : '';
-                                        echo (($_SESSION['role'] == 'Mahasiswa') || ($_SESSION['role'] == 'Dosen')) ?  ' ('.$_SESSION['kode_prodi'].')' : '';
+                                      echo (($_SESSION['role'] == 'Mahasiswa') || ($_SESSION['role'] == 'Dosen')) ?  ' ('.$_SESSION['kode_prodi'].')' : '';
                                 ?>
-
+    
                             </span><span class="user-status"> 
                                 <?php 
                                     if (!empty($_SESSION)) {

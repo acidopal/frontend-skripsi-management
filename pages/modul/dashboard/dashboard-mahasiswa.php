@@ -11,7 +11,7 @@
         $objSkripsi->topik = $_POST['topik'];
         $objSkripsi->abstrak_id = $_POST['abstrak_id'];
         $objSkripsi->abstrak_en = $_POST['abstrak_en'];
-        $objSkripsi->file_proposal = $_POST['file_proposal'];
+        // $objSkripsi->file_proposal = $_POST['file_proposal'];
         $objSkripsi->created_date = $_POST['created_date'];
 
         $objSkripsi->addSkripsi();

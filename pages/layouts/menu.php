@@ -23,16 +23,21 @@
                  ?>"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
             </li>
             <?php
-                if ($_SESSION['role'] == 'Dosen' || $_SESSION['role'] == 'Mahasiswa') {
+                if ($_SESSION['is_kaprodi'] == 1 || $_SESSION['role'] == 'Mahasiswa') {
             ?>
             <li class="<?php echo($_GET[p] == 'skripsi' ? 'active' : '');?>  nav-item"><a href="?p=skripsi"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Skripsi">Skripsi</span></a>
             </li>
              <?php 
                 }
              ?>
+              <?php
+                if ($_SESSION['role'] == 'Dosen' || $_SESSION['role'] == 'Mahasiswa') {
+            ?>
             <li class="<?php echo($_GET[p] == 'bimbingan' ? 'active' : '');?> nav-item"><a href="?p=bimbingan"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Bimbingan Skripsi">Bimbingan Skripsi</span></a>
             </li>
-
+           <?php 
+                }
+             ?>
             <?php
                 if (!empty($_SESSION)) {
                     if ($_SESSION['role'] == 'Admin') {

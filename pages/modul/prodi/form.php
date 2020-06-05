@@ -12,6 +12,7 @@
     if (isset($_POST['btnSubmit'])) {
         $objProdi->kode_prodi = $_POST['kode_prodi'];
         $objProdi->nama_prodi = $_POST['nama_prodi'];
+        $objProdi->kaprodi = $_POST['kaprodi'];
 
         if (isset($_GET['kode_prodi'])) {
             $objProdi->kode_prodi = $_GET['kode_prodi'];
